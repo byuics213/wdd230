@@ -70,7 +70,18 @@ describe(`Week 1`, () => {
             })
         
             it('Contains Correct Charset', () => {
-                cy.document().its('charset').should('eq', 'UTF-8');
+                //this doesn't work. It always says the charset is utf-8, no matter what I set it to
+                //cy.document().its('charset').should('eq', 'UTF-8');
+
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html');
+        
+                    const meta = doc.querySelectorAll('meta[charset=utf-8]');
+                    expect(meta.length).to.eq(1);
+                });
             })
         
             it('Contains Correct Viewport', () => {
