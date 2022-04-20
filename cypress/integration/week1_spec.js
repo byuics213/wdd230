@@ -168,9 +168,10 @@ describe(`Week 1`, () => {
 
             it("HTML validation", () => {
                 cy.request({
-                  url: `https://validator.nu/?doc=${current_url}&out=json`
+                    url: `https://validator.nu/?doc=${current_url}&out=json`
                 }).then((resp) => {
-                  cy.log(resp.body.messages)
+                    cy.log(resp.body.messages);
+                    expect(resp.body.messages.length).equals(0);
                 })
             })
 
