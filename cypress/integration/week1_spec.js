@@ -1,12 +1,17 @@
 const urls = require('../fixtures/students.json');
 const begin_html = require('../fixtures/begin.json');
 const end_html = require('../fixtures/end.json');
-let student_string = '';
 let base_url = '';
 let current_url = '';
 
 describe(`Week 1`, () => { 
     after(() => {
+        let student_string = '';
+        urls.forEach(url => {
+            base_url = `https://${url}.github.io/wdd230/`;
+            current_url = `${base_url}/index.html`;
+            student_string += `students.push({name:'${url}',link:'${current_url}'});`;
+        })
         cy.writeFile("week1.html", begin_html + student_string + end_html);
     })
     urls.forEach(url => {
@@ -16,7 +21,6 @@ describe(`Week 1`, () => {
                 base_url = `https://${url}.github.io/wdd230/`;
                 current_url = `${base_url}/index.html`;
                 cy.visit(current_url) ;
-                student_string += `students.push({name:'${url}',link:'${current_url}'});`;
             })
 
             it('Contains header Element', () => {
