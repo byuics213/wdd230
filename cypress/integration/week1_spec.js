@@ -125,7 +125,7 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'src')
                     .then((src) => {
-                        expect(src).to.match(/images/)
+                        expect(src).to.match(/images\//)
                     })
                 });
             })
@@ -136,7 +136,7 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'href')
                     .then((href) => {
-                        expect(href).to.match(/css/)
+                        expect(href).to.match(/css\//)
                     })
                 });
             })
@@ -151,7 +151,7 @@ describe(`Week 1`, () => {
                     const scripts = doc.querySelectorAll('head script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
-                    srcs.forEach(src => expect(src).to.match(/^js/))
+                    srcs.forEach(src => expect(src).to.match(/^js\//))
                 });
             })
 
