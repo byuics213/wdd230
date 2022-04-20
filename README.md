@@ -10,6 +10,25 @@
 
 6. add "cypress:open": "cypress open" to "scripts" in your package.json file.
 
+7. Open terminal and run npm run cypress:open
+
+8. A cypress window should open to show the test being run.
+
+The file cypres/fixtures/students.json contains an array of the student's github accounts. It will need to be (manually?) updated each semester.
+
+After the tests run there will be a file in the root folder named something like week1.html. Open this file in a browser. At the top you will see next and back buttons and at the bottom you will see the student's file in a frame. This allows us to quickly flip through the student's files. This, of course, assumes students are naming their files correctly.
+
+You can add three bookmarklets in your browser that help with grading. The html file, like week1.html, has their assignments in a frame. There is one bookmarklet to break out of the frame. The other two bookmarklets can only run if the assignment is out of the frame. One shows the Source of their assignment and the other validates their assignment.
+ 
+Show Frame
+javascript:(function(){ let win = window.open(document.getElementById("student_link").innerHTML); })();
+ 
+Source
+javascript:(function(){  let errors = null;  let xhttp1 = new XMLHttpRequest();  xhttp1.open("GET", document.location.href, true);  xhttp1.onreadystatechange = function () {  if (this.readyState == 4 && this.status == 200) {  let doc = this.responseText; let win = window.open("", "", "height=800,width=800");  win.document.body.innerText = doc;  }  };  xhttp1.send(); })();
+ 
+Validator
+javascript:(function(){  let errors = null;  let xhttp1 = new XMLHttpRequest();  xhttp1.open("GET", document.location.href, true);  xhttp1.onreadystatechange = function () {  if (this.readyState == 4 && this.status == 200) {  let doc = this.responseText;  let xhttp2 = new XMLHttpRequest();  xhttp2.open("POST", "https://validator.w3.org/nu/?out=json", true);  xhttp2.setRequestHeader("Content-type", "text/html; charset=utf-8");  xhttp2.onreadystatechange = function () {  if (this.readyState == 4 && this.status == 200) {  errors = JSON.parse(this.responseText);  let errorpage = "";  errors.messages.forEach( function (element) {  errorpage += "Type: " + element.type + "\nLine: " + element.lastLine  + "\nMessage: " + element.message + "\nExtract: " + element.extract  + "\n\n";  });  let win = window.open("", "", "height=800,width=800");  win.document.body.innerText = errorpage;  }  };  xhttp2.send(doc);  }  };  xhttp1.send(); })();
+ 
 **********
 
 Help for students
@@ -28,3 +47,5 @@ https://stackoverflow.com/questions/71902895/can-i-use-multiple-git-accounts-in-
 git config credential.${remote}.username whateveryourusernameis
 
 You might need to reclone your repository from git again.
+
+Also, use different browsers for each account.
