@@ -189,6 +189,17 @@ describe(`Week 1`, () => {
                 });
             })
 
+            it('CSS normalize is first css file', () => {
+                cy.get('link').first()
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        expect(href).to.match(/normalize.css/);
+                    })
+                });
+            })
+
             it('CSS href is without spaces', () => {
                 cy.get('link')
                 .each(($match) => {
@@ -219,6 +230,17 @@ describe(`Week 1`, () => {
                         
                     })
                 });
+            })
+
+            it('CSS is not inline', () => {
+                let style_count = 0;
+                cy.get('[style]')
+                .each(($match) => {
+                    style_count++;
+                })
+                .then(() => {
+                    expect(style_count).to.eq(0);
+                })
             })
         
             it('JavaScript in js folder', () => {

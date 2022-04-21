@@ -224,6 +224,17 @@ describe(`Week 1`, () => {
                     })
                 });
             })
+
+            it('CSS is not inline', () => {
+                let style_count = 0;
+                cy.get('[style]')
+                .each(($match) => {
+                    style_count++;
+                })
+                .then(() => {
+                    expect(style_count).to.eq(0);
+                })
+            })
         
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
