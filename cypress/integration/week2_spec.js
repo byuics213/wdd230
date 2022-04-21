@@ -172,6 +172,23 @@ describe(`Week 1`, () => {
                     })
                 });
             })
+
+            it('CSS href is lowercase without spaces', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        if(!href.includes("../") 
+                        && !href.includes("googleapis")
+                        && !href.includes("gstatic")){
+                            expect(href.toLowerCase()).to.eq(href);
+                            expect(href.split(" ").join("")).to.eq(href);
+                        }
+                        
+                    })
+                });
+            })
         
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
@@ -184,6 +201,20 @@ describe(`Week 1`, () => {
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
                     srcs.forEach(src => expect(src).to.match(/^js\//))
+                });
+            })
+
+            it('JavaScript src is lowercase without spaces', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+        
+                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => expect(src.toLowerCase()).to.eq(src))
+                    srcs.forEach(src => expect(src.split(" ").join("")).to.eq(src))
                 });
             })
 
