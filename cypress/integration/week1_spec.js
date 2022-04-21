@@ -145,6 +145,18 @@ describe(`Week 1`, () => {
                 });
             })
 
+            it('Img src is lowercase without spaces', () => {
+                cy.get('img')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'src')
+                    .then((src) => {
+                        expect(src.toLowerCase()).to.eq(src);
+                        expect(src.split(" ").join("")).to.eq(src);
+                    })
+                });
+            })
+
             it('CSS in css folder', () => {
                 cy.get('link')
                 .each(($match) => {

@@ -140,7 +140,19 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'src')
                     .then((src) => {
-                        expect(src).to.match(/images\//)
+                        expect(src).to.match(/images\//);
+                    })
+                });
+            })
+
+            it('Img src is lowercase without spaces', () => {
+                cy.get('img')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'src')
+                    .then((src) => {
+                        expect(src.toLowerCase()).to.eq(src);
+                        expect(src.split(" ").join("")).to.eq(src);
                     })
                 });
             })
