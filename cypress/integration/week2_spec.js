@@ -39,8 +39,13 @@ describe(`Week 1`, () => {
                 cy.get('h1'); 
             })
 
-            it('Contains h2 Element', () => {
-                cy.get('h2'); 
+            it('Contains at most 1 h1 Element', () => {
+                let h1_count = 0;
+                cy.get('h1')
+                .each(($match) => {
+                    h1_count++;
+                })
+                expect(h1_count).to.lte(1);
             })
 
             it('ID only used once', () => {
@@ -140,19 +145,29 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'src')
                     .then((src) => {
-                        expect(src).to.match(/images\//);
+                        expect(src).to.match(/images\//)
                     })
                 });
             })
 
-            it('Img src is lowercase without spaces', () => {
+            it('Img src is without spaces', () => {
+                cy.get('img')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'src')
+                    .then((src) => {
+                        expect(src.split(" ").join("")).to.eq(src);
+                    })
+                });
+            })
+
+            it('Img src is lowercase', () => {
                 cy.get('img')
                 .each(($match) => {
                     cy.wrap($match)
                     .invoke('attr', 'src')
                     .then((src) => {
                         expect(src.toLowerCase()).to.eq(src);
-                        expect(src.split(" ").join("")).to.eq(src);
                     })
                 });
             })
@@ -166,14 +181,29 @@ describe(`Week 1`, () => {
                         if(!href.includes("../") 
                         && !href.includes("googleapis")
                         && !href.includes("gstatic")){
-                            expect(href).to.match(/css\//);
+                            expect(href).to.match(/css\//)
+                        }
+                    })
+                });
+            })
+
+            it('CSS href is without spaces', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        if(!href.includes("../") 
+                        && !href.includes("googleapis")
+                        && !href.includes("gstatic")){
+                            expect(href.split(" ").join("")).to.eq(href);
                         }
                         
                     })
                 });
             })
 
-            it('CSS href is lowercase without spaces', () => {
+            it('CSS href is lowercase', () => {
                 cy.get('link')
                 .each(($match) => {
                     cy.wrap($match)
@@ -183,7 +213,6 @@ describe(`Week 1`, () => {
                         && !href.includes("googleapis")
                         && !href.includes("gstatic")){
                             expect(href.toLowerCase()).to.eq(href);
-                            expect(href.split(" ").join("")).to.eq(href);
                         }
                         
                     })
@@ -204,7 +233,20 @@ describe(`Week 1`, () => {
                 });
             })
 
-            it('JavaScript src is lowercase without spaces', () => {
+            it('JavaScript src is without spaces', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+        
+                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => expect(src.split(" ").join("")).to.eq(src))
+                });
+            })
+
+            it('JavaScript src is lowercase', () => {
                 cy.request(current_url)
                 .its('body')          // NB the response body, not the body of your page
                 .then(content => {
@@ -214,7 +256,6 @@ describe(`Week 1`, () => {
                     const scripts = doc.querySelectorAll('head script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     srcs.forEach(src => expect(src.toLowerCase()).to.eq(src))
-                    srcs.forEach(src => expect(src.split(" ").join("")).to.eq(src))
                 });
             })
 
