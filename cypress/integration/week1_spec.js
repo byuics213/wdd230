@@ -240,9 +240,9 @@ describe(`Week 1`, () => {
 
             it('CSS is not embedded', () => {
                 let style_count = 0;
-                cy.get('body')
-                .then($body => {
-                  if ($body.find('style').length) {
+                cy.get('head')
+                .then($head => {
+                  if ($head.find('style').length) {
                     style_count = 1;
                   }
                 })

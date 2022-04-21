@@ -244,6 +244,19 @@ describe(`Week 1`, () => {
                     expect(style_count).to.eq(0);
                 });
             })
+
+            it('CSS is not embedded', () => {
+                let style_count = 0;
+                cy.get('head')
+                .then($head => {
+                  if ($head.find('style').length) {
+                    style_count = 1;
+                  }
+                })
+                .then(() => {
+                    expect(style_count).to.eq(0);
+                });
+            })
         
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
