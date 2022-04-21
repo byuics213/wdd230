@@ -8,8 +8,8 @@ describe(`Week 1`, () => {
     after(() => {
         let student_string = '';
         urls.forEach(url => {
-            base_url = `https://${url}.github.io/wdd230/`;
-            current_url = `${base_url}index.html`;
+            base_url = `https://${url}.github.io/wdd230/lesson2/`;
+            current_url = `${base_url}design-principles.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
         })
         cy.writeFile("week1.html", begin_html + student_string + end_html);
@@ -18,8 +18,8 @@ describe(`Week 1`, () => {
     //Cypress.env('urls').forEach(url => {
         describe(`Current student: ${url}`, () => {
             before(() => {
-                base_url = `https://${url}.github.io/wdd230/`;
-                current_url = `${base_url}index.html`;
+                base_url = `https://${url}.github.io/wdd230/lesson2/`;
+                current_url = `${base_url}design-principles.html`;
                 cy.visit(current_url) ;
             })
 
@@ -151,7 +151,12 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'href')
                     .then((href) => {
-                        expect(href).to.match(/css\//)
+                        if(!href.includes("../") 
+                        && !href.includes("googleapis")
+                        && !href.includes("gstatic")){
+                            expect(href).to.match(/css\//);
+                        }
+                        
                     })
                 });
             })
@@ -193,12 +198,16 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'href')
                     .then((href) => {
-                        let css_url = `${base_url}${href}`;
-                        cy.request({
-                            url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
-                        }).then((resp) => {
-                            expect(resp.body).contains('No Error Found')
-                        })
+                        if(!href.includes("../") 
+                        && !href.includes("googleapis")
+                        && !href.includes("gstatic")){
+                            let css_url = `${base_url}${href}`;
+                            cy.request({
+                                url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
+                            }).then((resp) => {
+                                expect(resp.body).contains('No Error Found')
+                            })
+                        }
                     })
                 });
             })
