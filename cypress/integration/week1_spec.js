@@ -227,13 +227,28 @@ describe(`Week 1`, () => {
 
             it('CSS is not inline', () => {
                 let style_count = 0;
-                cy.get('[style]')
-                .each(($match) => {
-                    style_count++;
+                cy.get('body')
+                .then($body => {
+                  if ($body.find('[style]').length) {
+                    style_count = 1;
+                  }
                 })
                 .then(() => {
                     expect(style_count).to.eq(0);
+                });
+            })
+
+            it('CSS is not embedded', () => {
+                let style_count = 0;
+                cy.get('body')
+                .then($body => {
+                  if ($body.find('style').length) {
+                    style_count = 1;
+                  }
                 })
+                .then(() => {
+                    expect(style_count).to.eq(0);
+                });
             })
         
             it('JavaScript in js folder', () => {
