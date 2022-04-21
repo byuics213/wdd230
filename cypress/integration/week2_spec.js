@@ -45,7 +45,9 @@ describe(`Week 1`, () => {
                 .each(($match) => {
                     h1_count++;
                 })
-                expect(h1_count).to.lte(1);
+                .then(() => {
+                    expect(h1_count).to.lte(1);
+                })
             })
 
             it('ID only used once', () => {
