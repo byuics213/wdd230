@@ -332,9 +332,8 @@ describe(`Week 1`, () => {
                         cy.request(base_url + src)
                         .its('body')          // NB the response body, not the body of your page
                         .then(content => {
-                            cy.log(content)
+                            expect(content.toLowerCase()).to.not.match(/document.write/)
                         })
-                        
                     )
                 });
             })

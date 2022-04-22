@@ -81,17 +81,10 @@ describe(`Week 1`, () => {
             })
         
             it('Contains Correct Charset', () => {
-                //this doesn't work. It always says the charset is utf-8, no matter what I set it to
-                //cy.document().its('charset').should('eq', 'UTF-8');
-
                 cy.request(current_url)
                 .its('body')          // NB the response body, not the body of your page
                 .then(content => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(content, 'text/html');
-        
-                    const meta = doc.querySelectorAll('meta[charset=utf-8]');
-                    expect(meta.length).to.eq(1);
+                    expect(content.toLowerCase()).to.match(/<meta charset="utf-8">/)
                 });
             })
         
@@ -128,10 +121,6 @@ describe(`Week 1`, () => {
 
             it('Contains Copyright Symbol', () => {
                 cy.contains('©'); 
-            })
-
-            it('Contains document.write', () => {
-                cy.contains('document.write'); 
             })
         
             it('Img have alt', () => {
@@ -261,6 +250,22 @@ describe(`Week 1`, () => {
                     expect(style_count).to.eq(0);
                 });
             })
+
+            it('CSS external check', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        let css_url = `${base_url}${href}`;
+                        cy.request({
+                            url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
+                        }).then((resp) => {
+                            expect(resp.body).contains('No Error Found')
+                        })
+                    })
+                });
+            })
         
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
@@ -319,26 +324,26 @@ describe(`Week 1`, () => {
                 })
             })
 
-            it('CSS external check', () => {
-                cy.get('link')
-                .each(($match) => {
-                    cy.wrap($match)
-                    .invoke('attr', 'href')
-                    .then((href) => {
-                        if(!href.includes("../") 
-                        && !href.includes("googleapis")
-                        && !href.includes("gstatic")){
-                            let css_url = `${base_url}${href}`;
-                            cy.request({
-                                url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
-                            }).then((resp) => {
-                                expect(resp.body).contains('No Error Found')
-                            })
-                        }
-                    })
+            it('Contains document.write', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+        
+                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => 
+                        //cy.log(base_url + src)
+                        
+                        cy.request(base_url + src)
+                        .its('body')          // NB the response body, not the body of your page
+                        .then(content => {
+                            expect(content.toLowerCase()).to.not.match(/document.write/)
+                        })
+                    )
                 });
             })
-
         })
     })
 })
