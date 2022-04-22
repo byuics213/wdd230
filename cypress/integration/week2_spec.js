@@ -129,6 +129,10 @@ describe(`Week 1`, () => {
             it('Contains Copyright Symbol', () => {
                 cy.contains('©'); 
             })
+
+            it('Contains document.write', () => {
+                cy.contains('document.write'); 
+            })
         
             it('Img have alt', () => {
                 cy.get('img')
