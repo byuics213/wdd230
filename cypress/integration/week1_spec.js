@@ -337,12 +337,6 @@ describe(`Week 1`, () => {
                         
                     )
                 });
-/*
-                cy.get('html:root')
-                .eq(0)
-                .invoke('prop', 'outerHTML')
-                .then(pagesourse => cy.log(pagesourse))
-                */
             })
         })
     })
