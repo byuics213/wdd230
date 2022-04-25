@@ -88,7 +88,7 @@ describe(`Week 1`, () => {
                 cy.request(current_url)
                 .its('body')          // NB the response body, not the body of your page
                 .then(content => {
-                    expect(content.toLowerCase()).to.match(/<meta charset="utf-8">/)
+                    expect(content.toLowerCase()).to.match(/meta[\s]+charset[\s]*=[\s]*"[\s]*utf-8[\s]*"/)
                 });
             })
         
@@ -298,23 +298,6 @@ describe(`Week 1`, () => {
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     srcs.forEach(src => expect(src.toLowerCase()).to.eq(src))
                 });
-            })
-
-            it("HTML validation", () => {
-                cy.request({
-                    url: `https://validator.nu/?doc=${current_url}&out=json`
-                }).then((resp) => {
-                    cy.log(resp.body.messages);
-                    expect(resp.body.messages.length).equals(0);
-                })
-            })
-
-            it("CSS validation", () => {
-                cy.request({
-                  url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(current_url)}`
-                }).then((resp) => {
-                    expect(resp.body).contains('No Error Found')
-                })
             })
 
             it('Contains document.write', () => {

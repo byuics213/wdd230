@@ -17,6 +17,10 @@ Footer with copyright, year, name, state, and last updated
 
 6. Headings are in the right order. Visual inspection of code
 
+7. Semantic elements are used appropriately and where feasible throughout the document.   
+
+8. Validate HTML and CSS using web developer plugin
+
 Install
 
 1. git clone https://github.com/byuics213/wdd230.git
