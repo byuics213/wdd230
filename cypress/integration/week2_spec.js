@@ -4,7 +4,7 @@ const end_html = require('../fixtures/end.json');
 let base_url = '';
 let current_url = '';
 
-describe(`Week 1`, () => { 
+describe(`Week 2`, () => { 
     after(() => {
         let student_string = '';
         urls.forEach(url => {

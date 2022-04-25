@@ -1,3 +1,24 @@
+Week 1
+
+1. The page must have the same general structure as the example. Visual inspection
+
+Header block with image and their name
+Main block with title and 10 links
+<hr> and note about some lessones needing more than one link
+Footer with copyright, year, name, state, and last updated
+
+2. All the content on the page must be centered and width limited. Visual inspection
+
+3. The portrait image is optimized to be rendered in the browser. Lighthouse report
+
+4. JavaScript code is not mixed with your HTML code inline. Visual inspection of code
+
+5. No JavaScript errors are found. Look at Console
+
+6. Headings are in the right order. Visual inspection of code
+
+Install
+
 1. git clone https://github.com/byuics213/wdd230.git
 
 2. In terminal, cd to the directory where you cloned the repository on your machine.
