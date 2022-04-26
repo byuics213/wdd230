@@ -327,6 +327,14 @@ describe(`Week 2`, () => {
                     )
                 });
             })
+
+            it('No 3rd party code, such as jquery, bootstrap, etc. are allowed', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css/);
+                });
+            })
         })
     })
 })
