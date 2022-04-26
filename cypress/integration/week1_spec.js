@@ -243,22 +243,6 @@ describe(`Week 1`, () => {
                     expect(style_count).to.eq(0);
                 });
             })
-
-            it('CSS external check', () => {
-                cy.get('link')
-                .each(($match) => {
-                    cy.wrap($match)
-                    .invoke('attr', 'href')
-                    .then((href) => {
-                        let css_url = `${base_url}${href}`;
-                        cy.request({
-                            url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
-                        }).then((resp) => {
-                            expect(resp.body).contains('No Error Found')
-                        })
-                    })
-                });
-            })
         
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
@@ -315,9 +299,17 @@ describe(`Week 1`, () => {
                         cy.request(base_url + src)
                         .its('body')          // NB the response body, not the body of your page
                         .then(content => {
-                            expect(content.toLowerCase()).to.not.match(/document.write/)
+                            expect(content.toLowerCase()).to.not.match(/document.write/);
                         })
                     )
+                });
+            })
+
+            it('No 3rd party code, such as jquery, bootstrap, etc. are allowed', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css/);
                 });
             })
         })
