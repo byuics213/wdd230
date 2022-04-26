@@ -21,6 +21,20 @@ Footer with copyright, year, name, state, and last updated
 
 8. Validate HTML and CSS using web developer plugin
 
+Week 2
+
+1. The page must have 3 sections.
+
+2. Each section must have 
+    the design principle's title,
+    the organization/company name
+    the web site address as a external hyperlink,
+    a mobile view screenshot* of an organization's web page that, in your opinion, illustrates that principle, and
+    a brief description on how the design principle is exemplified on that page.
+
+3. 
+
+
 Install
 
 1. git clone https://github.com/byuics213/wdd230.git
