@@ -225,6 +225,22 @@ describe(`Week 2`, () => {
                 });
             })
 
+            it('Uses a font from googleapi', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        if(!href.includes("../") 
+                        && !href.includes("css/")
+                        && !href.includes("gstatic")){
+                            expect(href).to.match(/googleapis/);
+                        }
+                        
+                    })
+                });
+            })
+
             it('CSS is not inline', () => {
                 let style_count = 0;
                 cy.get('body')
