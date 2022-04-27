@@ -283,7 +283,9 @@ describe(`Week 1`, () => {
                     const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
-                    srcs.forEach(src => expect(src).to.match(/^js\//))
+                    srcs.forEach(src => {
+                        expect(src).to.match(/^js\//)
+                    })
                 });
             })
 
@@ -296,21 +298,9 @@ describe(`Week 1`, () => {
         
                     const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
-                    srcs.forEach(src => expect(src).to.not.eq('null'))
-                });
-            })
-
-            it('JavaScript script tag has a src', () => {
-                cy.request(current_url)
-                .its('body')          // NB the response body, not the body of your page
-                .then(content => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(content, 'text/html')
-        
-                    const scripts = doc.querySelectorAll('script')    // native query
-                    const srcs = [...scripts].map(script => script.getAttribute('src'))
-                    //expect(srcs.length).to.gte(1);
-                    expect(srcs.length).to.eq(scripts.length);
+                    srcs.forEach(src => {
+                        expect(src).to.not.be.null
+                    })
                 });
             })
 
@@ -320,11 +310,7 @@ describe(`Week 1`, () => {
                     cy.wrap($match)
                     .invoke('attr', 'href')
                     .then((href) => {
-                        cy.log(href);
-                        if(href.includes(".js")
-                        ){
-                            cy.contains("JS is in a link tag").should('not.exist')
-                        }
+                        expect(href).to.not.match(/^js\//)
                     })
                 });
             })
