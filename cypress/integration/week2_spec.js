@@ -175,7 +175,8 @@ describe(`Week 2`, () => {
                     .then((href) => {
                         if(!href.includes("../") 
                         && !href.includes("googleapis")
-                        && !href.includes("gstatic")){
+                        && !href.includes("gstatic")
+                        && !href.includes("http")){
                             expect(href).to.match(/css\//)
                         }
                     })
@@ -201,7 +202,8 @@ describe(`Week 2`, () => {
                     .then((href) => {
                         if(!href.includes("../") 
                         && !href.includes("googleapis")
-                        && !href.includes("gstatic")){
+                        && !href.includes("gstatic")
+                        && !href.includes("http")){
                             expect(href.split(" ").join("")).to.eq(href);
                         }
                         
@@ -217,10 +219,37 @@ describe(`Week 2`, () => {
                     .then((href) => {
                         if(!href.includes("../") 
                         && !href.includes("googleapis")
-                        && !href.includes("gstatic")){
+                        && !href.includes("gstatic")
+                        && !href.includes("http")){
                             expect(href.toLowerCase()).to.eq(href);
                         }
                         
+                    })
+                });
+            })
+
+            it('CSS file is not 404', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        if(!href.includes("../") 
+                        && !href.includes("googleapis")
+                        && !href.includes("gstatic")
+                        && !href.includes("http")){
+                            cy.request({
+                                url: base_url + href,
+                                followRedirect: false,
+                                failOnStatusCode: false,
+                            }).then((resp) => {
+                                expect(resp.status).to.eq(200)
+                                //expect(resp.redirectedToUrl).to.eq(undefined)
+                            })
+                            //cy.visit(base_url + href, { failOnStatusCode: false })
+                            //cy.get(".error-code").should("contain", "200")
+                            //cy.get(".error-text").should("contain", "Page not found")
+                        }
                     })
                 });
             })
@@ -267,22 +296,6 @@ describe(`Week 2`, () => {
                 });
             })
 
-            it('CSS external check', () => {
-                cy.get('link')
-                .each(($match) => {
-                    cy.wrap($match)
-                    .invoke('attr', 'href')
-                    .then((href) => {
-                        let css_url = `${base_url}${href}`;
-                        cy.request({
-                            url: `http://jigsaw.w3.org/css-validator/validator?medium=screen&output=text&uri=${encodeURIComponent(css_url)}`
-                        }).then((resp) => {
-                            expect(resp.body).contains('No Error Found')
-                        })
-                    })
-                });
-            })
-        
             it('JavaScript in js folder', () => {
                 cy.request(current_url)
                 .its('body')          // NB the response body, not the body of your page
@@ -290,10 +303,60 @@ describe(`Week 2`, () => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(content, 'text/html')
         
-                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
-                    srcs.forEach(src => expect(src).to.match(/^js\//))
+                    srcs.forEach(src => {
+                        expect(src).to.match(/^js\//)
+                    })
+                });
+            })
+
+            it('JavaScript is in external files', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+        
+                    const scripts = doc.querySelectorAll('script')    // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => {
+                        expect(src).to.not.be.null
+                    })
+                });
+            })
+
+            it('JavaScript is not in a <link>', () => {
+                cy.get('link')
+                .each(($match) => {
+                    cy.wrap($match)
+                    .invoke('attr', 'href')
+                    .then((href) => {
+                        expect(href).to.not.match(/^js\//)
+                    })
+                });
+            })
+
+            it('JavaScript file is found', () => {
+                cy.request(current_url)
+                .its('body')          // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+        
+                    const scripts = doc.querySelectorAll('script')    // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => {
+                        cy.request({
+                            url: base_url + src,
+                            followRedirect: false,
+                            failOnStatusCode: false,
+                          }).then((resp) => {
+                            expect(resp.status).to.eq(200)
+                            //expect(resp.redirectedToUrl).to.eq(undefined)
+                          })
+                    })
                 });
             })
 
@@ -304,7 +367,7 @@ describe(`Week 2`, () => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(content, 'text/html')
         
-                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     srcs.forEach(src => expect(src.split(" ").join("")).to.eq(src))
                 });
@@ -317,7 +380,7 @@ describe(`Week 2`, () => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(content, 'text/html')
         
-                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     srcs.forEach(src => expect(src.toLowerCase()).to.eq(src))
                 });
@@ -330,15 +393,15 @@ describe(`Week 2`, () => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(content, 'text/html')
         
-                    const scripts = doc.querySelectorAll('head script')    // native query
+                    const scripts = doc.querySelectorAll('script')    // native query
                     const srcs = [...scripts].map(script => script.getAttribute('src'))
                     srcs.forEach(src => 
-                        //cy.log(base_url + src)
-                        
-                        cy.request(base_url + src)
+                        cy.request({
+                            url: base_url + src
+                            , failOnStatusCode: false})
                         .its('body')          // NB the response body, not the body of your page
                         .then(content => {
-                            expect(content.toLowerCase()).to.not.match(/document.write/)
+                            expect(content.toLowerCase()).to.not.match(/document.write/);
                         })
                     )
                 });
