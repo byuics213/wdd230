@@ -3,8 +3,9 @@ const begin_html = require('../fixtures/begin.json');
 const end_html = require('../fixtures/end.json');
 let base_url = '';
 let current_url = '';
+let lesson = '1';
 
-describe(`Week 1`, () => { 
+describe(`Week ${lesson}`, () => { 
     after(() => {
         let student_string = '';
         urls.forEach(url => {
@@ -12,7 +13,7 @@ describe(`Week 1`, () => {
             current_url = `${base_url}index.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
         })
-        cy.writeFile("week1.html", begin_html + student_string + end_html);
+        cy.writeFile("week"+lesson+".html"`, begin_html + student_string + end_html);
     })
     urls.forEach(url => {
     //Cypress.env('urls').forEach(url => {

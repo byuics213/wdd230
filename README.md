@@ -32,7 +32,11 @@ Week 2
     a mobile view screenshot* of an organization's web page that, in your opinion, illustrates that principle, and
     a brief description on how the design principle is exemplified on that page.
 
-3. 
+3. CSS Grid must be used for the main section of the page.
+
+4. They must use media queries
+
+5. If they did not post their page in the dicussion board for peer review, encourage them to do so this next week.
 
 
 Install

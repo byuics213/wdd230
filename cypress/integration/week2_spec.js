@@ -3,22 +3,23 @@ const begin_html = require('../fixtures/begin.json');
 const end_html = require('../fixtures/end.json');
 let base_url = '';
 let current_url = '';
+let lesson = '2';
 
-describe(`Week 2`, () => { 
+describe(`Week ${lesson}`, () => { 
     after(() => {
         let student_string = '';
         urls.forEach(url => {
-            base_url = `https://${url}.github.io/wdd230/lesson2/`;
+            base_url = `https://${url}.github.io/wdd230/lesson${lesson}/`;
             current_url = `${base_url}design-principles.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
         })
-        cy.writeFile("week1.html", begin_html + student_string + end_html);
+        cy.writeFile("week"+lesson+".html", begin_html + student_string + end_html);
     })
     urls.forEach(url => {
     //Cypress.env('urls').forEach(url => {
         describe(`Current student: ${url}`, () => {
             before(() => {
-                base_url = `https://${url}.github.io/wdd230/lesson2/`;
+                base_url = `https://${url}.github.io/wdd230/lesson${lesson}/`;
                 current_url = `${base_url}design-principles.html`;
                 cy.visit(current_url) ;
             })
