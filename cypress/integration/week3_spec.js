@@ -69,14 +69,6 @@ describe(`Week ${lesson}`, () => {
                             });
                     })
 
-                    it('Header Element uses Flex or Grid', () => {
-                        cy.get('header')
-                            .invoke('css', 'display')
-                            .then((display) => {
-                                expect(display).to.be.oneOf(['flex', 'grid'])
-                            });
-                    })
-
                     it('Contains Correct Doctype', () => {
                         cy.document()
                             .then(doc => {
