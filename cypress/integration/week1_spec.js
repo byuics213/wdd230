@@ -13,7 +13,7 @@ describe(`Week ${lesson}`, () => {
             current_url = `${base_url}index.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
         })
-        cy.writeFile("week"+lesson+".html"`, begin_html + student_string + end_html);
+        cy.writeFile("week"+lesson+".html", begin_html + student_string + end_html);
     })
     urls.forEach(url => {
     //Cypress.env('urls').forEach(url => {
