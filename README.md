@@ -38,6 +38,19 @@ Week 2
 
 5. If they did not post their page in the dicussion board for peer review, encourage them to do so this next week.
 
+Week 3
+
+1. Use the specifications listed in the Chamber of Commerce Site Project description to drive your plan.
+
+Week 4
+
+1. The header must contain a logo, site name, and navigation (nav), spanning the entire screen in the large view.
+
+2. The navigation contains four page links and two social media external links. The navigation menu starts with a 'hamburger' button in the small and medium views and is visible in the larger view. The menu must be responsive and use JavaScript to respond to user behavior and toggle between not showing any menu items and showing all the menu items.
+
+3. The main section will not be built at this stage of the project but placeholder blocks and general layout should be started. The illustrations provide the sections that are required and where they are to be placed in the respective view sizes. The sections include hero image and call to action, news, event(s), weather, join, and two to three company spotlights.
+
+4. The footer contains the logo (a placeholder icon/image is fine for now), contact information, a link to a map, and a base footer with a dynamic copyright year (driven by JavaScript), site name, your name, "WDD 230 Project", and the last modification date driven by JavaScript.
 
 Install
 
