@@ -3,7 +3,7 @@ const begin_html = require('../fixtures/begin.json');
 const end_html = require('../fixtures/end.json');
 let base_url = '';
 let current_url = '';
-let lesson = '5';
+let lesson = '6';
 let student_string = '';
 const sizes = [
     ['base', 'iphone-6'],
@@ -199,6 +199,55 @@ describe(`Week ${lesson}`, () => {
                             .then((src) => {
                                 expect(src.toLowerCase()).to.eq(src);
                             })
+                    });
+            })
+
+            it('Image wdd230-org.jpg is found', () => {
+                let file_found = 0;
+                cy.get('img')
+                    .each(($match) => {
+                        cy.wrap($match)
+                            .invoke('attr', 'src')
+                            .then((src) => {
+                                if (src.match(/images\/wdd230-org\.jpg/)) {
+                                    file_found = 1;
+                                }
+                            })
+                    })
+                    .then(() => {
+                        expect(file_found).to.eq(1);
+                    });
+            })
+
+            it('Contains picture Element', () => {
+                cy.get('picture');
+            })
+
+            it('picture source has srcset', () => {
+                cy.get('picture source')
+                    .each(($match) => {
+                        cy.wrap($match)
+                            .invoke('attr', 'srcset')
+                            .then((srcset) => {
+                                expect(srcset).to.have.length.of.at.least(3)
+                            })
+                    });
+            })
+
+            it('logo uses webp format', () => {
+                let file_found = 0;
+                cy.get('img')
+                    .each(($match) => {
+                        cy.wrap($match)
+                            .invoke('attr', 'src')
+                            .then((src) => {
+                                if (src.match(/.webp/)) {
+                                    file_found = 1;
+                                }
+                            })
+                    })
+                    .then(() => {
+                        expect(file_found).to.eq(1);
                     });
             })
 
@@ -472,7 +521,28 @@ describe(`Week ${lesson}`, () => {
                     });
             })
 
-            it('Contains document.write', () => {
+            it('JS includes windchill.js file', () => {
+                let file_found = 0;
+                cy.request(current_url)
+                .its('body') // NB the response body, not the body of your page
+                .then(content => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html')
+
+                    const scripts = doc.querySelectorAll('script') // native query
+                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                    srcs.forEach(src => {
+                        if (src.match(/js\/windchill.js/)) {
+                            file_found = 1;
+                        }
+                    })
+                })
+                .then(() => {
+                    expect(file_found).to.eq(1);
+                });
+            })
+
+            it('Does not use document.write', () => {
                 cy.request(current_url)
                     .its('body') // NB the response body, not the body of your page
                     .then(content => {

@@ -224,7 +224,7 @@ describe(`Week ${lesson}`, () => {
                         cy.wrap($match)
                             .invoke('attr', 'href')
                             .then((href) => {
-                                expect(href).to.match(/normalize.css/);
+                                expect(href).to.match(/normalize.*\.css/);
                             })
                     });
             })
@@ -236,7 +236,7 @@ describe(`Week ${lesson}`, () => {
                         cy.wrap($match)
                             .invoke('attr', 'href')
                             .then((href) => {
-                                if (href.match(/base.css/)) {
+                                if (href.match(/base\.css/)) {
                                     file_found = 1;
                                 }
                             })
@@ -253,7 +253,7 @@ describe(`Week ${lesson}`, () => {
                         cy.wrap($match)
                             .invoke('attr', 'href')
                             .then((href) => {
-                                if (href.match(/medium.css/)) {
+                                if (href.match(/medium\.css/)) {
                                     file_found = 1;
                                 }
                             })
@@ -270,7 +270,7 @@ describe(`Week ${lesson}`, () => {
                         cy.wrap($match)
                             .invoke('attr', 'href')
                             .then((href) => {
-                                if (href.match(/large.css/)) {
+                                if (href.match(/large\.css/)) {
                                     file_found = 1;
                                 }
                             })

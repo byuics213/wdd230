@@ -186,7 +186,7 @@ describe(`Week ${lesson}`, () => {
                                 cy.wrap($match)
                                     .invoke('attr', 'href')
                                     .then((href) => {
-                                        expect(href).to.match(/normalize.css/);
+                                        expect(href).to.match(/normalize.*\.css/);
                                     })
                             });
                     })
