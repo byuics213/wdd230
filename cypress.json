@@ -1,3 +1,4 @@
 {
     "defaultCommandTimeout":1000
+    , "supportFile": "./cypress/support/support.js"
 }

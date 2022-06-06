@@ -545,7 +545,7 @@ describe(`make html file`, () => {
         for (let i = 0; i < sizes.length; i++) {
             curr_name = sizes[i][0];
 
-            screenshot_url = `cypress/screenshots/week4_spec.js/${url}_${curr_name}.png`
+            screenshot_url = `cypress/screenshots/week${lesson}_spec.js/${url}_${curr_name}.png`
 
             student_string += `students.push({name:'${url}_${curr_name}',link:'${screenshot_url}'});`;
         }
