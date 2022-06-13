@@ -52,6 +52,58 @@ Week 4
 
 4. The footer contains the logo (a placeholder icon/image is fine for now), contact information, a link to a map, and a base footer with a dynamic copyright year (driven by JavaScript), site name, your name, "WDD 230 Project", and the last modification date driven by JavaScript.
 
+Week 8
+
+form field
+method = get
+action = "thankyou.html"
+
+input type="text"
+first name
+last name
+title
+business name/title
+
+input type="email"
+email
+
+input type="tel"
+cell phone number
+
+input type="hidden"
+date and time
+
+required
+first name
+last name
+email
+cell phone number
+business name/title
+
+placeholder
+email
+
+only alpha, hyphens, and spaces using regular expression
+title
+
+minimum 7 characters using regular expression
+title
+
+membership level selection
+probably a select or radio buttons
+4 membership levels with increasing costs/benefits, no fee for lowest
+display benefits to the side of form in larger views
+
+textarea
+business description
+
+button type="submit" or input type="submit"
+
+name attribute on all 10 elements
+
+label tag for all 10 form elements
+
+
 Install
 
 1. git clone https://github.com/byuics213/wdd230.git
