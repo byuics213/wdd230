@@ -3,14 +3,14 @@ const begin_html = require('../fixtures/begin.json');
 const end_html = require('../fixtures/end.json');
 let base_url = '';
 let current_url = '';
-let lesson = '8';
+let lesson = '9';
 let student_string = '';
 const sizes = [
     ['base', 'iphone-6'],
     ['medium', 'ipad-2'],
     ['large', [1440, 900]]
 ];
-let files = ["index", "join", "thankyou"];
+let files = ["directory"];
 
 describe(`Week ${lesson}`, () => {
     urls.forEach(url => {
@@ -23,137 +23,59 @@ describe(`Week ${lesson}`, () => {
                         cy.visit(current_url);
                     })
 
-                    if(file === "join"){
-                        it('Contains form Element', () => {
-                            cy.get('form');
-                        })
+                    it('A reference to data.json is found in directory.html or any of the external js files', () => {
+                        let file_found = false;
+                        //check for <script> tag
+                        cy.request(current_url)
+                            .its('body') // NB the response body, not the body of your page
+                            .then(content => {
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(content, 'text/html')
 
-                        it('Form has method GET', () => {
-                            cy.get('form[method="get" i]');
-                        })
+                                const scripts = doc.querySelectorAll('script') // native query
+                                const srcs = [...scripts].map(script => script.getAttribute('src'))
+                                //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
+                                srcs.forEach(src => {
+                                    if (src.toLowerCase().match(/data\.json/)) {
+                                        file_found = true;
+                                    }
+                                    //expect(src.toLowerCase()).to.match(/data\.json/)
+                                })
+                            })
+                            .then(content => {
+                                //check anywhere in html file
+                                if (!file_found) {
+                                    if (content.toLowerCase().match(/data\.json/)) {
+                                        file_found = true;
+                                    }
+                                }
+                            })
+                            .then(content => {
+                                //check external js files
+                                if (!file_found) {
+                                    const parser = new DOMParser();
+                                    const doc = parser.parseFromString(content, 'text/html')
 
-                        it('Form has action thankyou.html', () => {
-                            cy.get('form[action$="thankyou.html"]');
-                        })
+                                    const scripts = doc.querySelectorAll('script') // native query
+                                    const srcs = [...scripts].map(script => script.getAttribute('src'))
+                                    srcs.forEach(src => {
+                                        cy.request({
+                                            url: base_url + src,
+                                            followRedirect: false,
+                                            failOnStatusCode: false,
+                                        }).then((resp) => {
+                                            if (resp.body.toLowerCase().match(/data\.json/)) {
+                                                file_found = true;
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                            .then(() => {
+                                expect(file_found).to.eq(true);
+                            });
+                    })
 
-                        it('Contains at least 4 text input Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[type="text" i]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(4);
-                                })
-                        })
-
-                        it('Contains at least 1 email Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[type="email" i]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains at least 1 tel Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[type="tel" i]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains at least 1 hidden Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[type="hidden" i]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains at least 5 required Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[required]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(5);
-                                })
-                        })
-
-                        it('Contains at least 1 placeholder Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[placeholder]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains at least 1 pattern Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[pattern]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains at least 1 minlength Elements', () => {
-                            let element_count = 0;
-                            cy.get('input[minlength]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(1);
-                                })
-                        })
-
-                        it('Contains textarea Elements', () => {
-                            cy.get('textarea')
-                        })
-
-                        it('Contains submit button', () => {
-                            cy.get('[type="submit"]')
-                        })
-
-                        it('Contains at least 10 label Elements', () => {
-                            let element_count = 0;
-                            cy.get('label')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(10);
-                                })
-                        })
-
-                        it('Contains at least 10 Elements with name attribute', () => {
-                            let element_count = 0;
-                            cy.get('[name]')
-                                .each(($match) => {
-                                    element_count++;
-                                })
-                                .then(() => {
-                                    expect(element_count).to.gte(10);
-                                })
-                        })
-                    }
 
                     it('Contains header Element', () => {
                         cy.get('header');
@@ -266,14 +188,6 @@ describe(`Week ${lesson}`, () => {
 
                     it('Contains Copyright Symbol', () => {
                         cy.contains('©');
-                    })
-
-                    it('Contains date in format day of week, day month year', () => {
-                        const now = new Date();
-                        const fulldateUK = new Intl.DateTimeFormat("en-UK", {
-                            dateStyle: "full"
-                        }).format(now);
-                        cy.contains(fulldateUK);
                     })
 
                     it('Img have alt', () => {
@@ -458,22 +372,6 @@ describe(`Week ${lesson}`, () => {
                             });
                     })
 
-                    it('Uses a font from googleapi', () => {
-                        cy.get('link')
-                            .each(($match) => {
-                                cy.wrap($match)
-                                    .invoke('attr', 'href')
-                                    .then((href) => {
-                                        if (!href.includes("../") &&
-                                            !href.includes("css/") &&
-                                            !href.includes("gstatic")) {
-                                            expect(href).to.match(/googleapis/);
-                                        }
-
-                                    })
-                            });
-                    })
-
                     it('CSS is not inline', () => {
                         let style_count = 0;
                         cy.get('body')
@@ -616,7 +514,7 @@ describe(`Week ${lesson}`, () => {
                         cy.request(current_url)
                             .its('body') // NB the response body, not the body of your page
                             .then(content => {
-                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css/);
+                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css|elfsight/);
                             });
                     })
                 })
