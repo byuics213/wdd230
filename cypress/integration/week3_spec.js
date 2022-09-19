@@ -174,7 +174,7 @@ describe(`Week ${lesson}`, () => {
                                             !href.includes("googleapis") &&
                                             !href.includes("gstatic") &&
                                             !href.includes("http")) {
-                                            expect(href).to.match(/css\//)
+                                            expect(href).to.match(/styles\//)
                                         }
                                     })
                             });
@@ -304,7 +304,7 @@ describe(`Week ${lesson}`, () => {
                                 const srcs = [...scripts].map(script => script.getAttribute('src'))
                                 //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
                                 srcs.forEach(src => {
-                                    expect(src).to.match(/^js\//)
+                                    expect(src).to.match(/^scripts\//)
                                 })
                             });
                     })
