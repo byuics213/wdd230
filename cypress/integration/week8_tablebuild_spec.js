@@ -15,7 +15,7 @@ describe(`Week ${lesson} Table Build`, () => {
     urls.forEach(url => {
         describe(`Current student: ${url}`, () => {
             before(() => {
-                base_url = `https://${url}.github.io/wdd230/lesson-8/`;
+                base_url = `https://${url}.github.io/wdd230/lesson08/`;
                 current_url = `${base_url}tablebuild.html`;
                 cy.visit(current_url);
             })
@@ -30,10 +30,6 @@ describe(`Week ${lesson} Table Build`, () => {
 
             it('Contains tbody Element', () => {
                 cy.get('tbody');
-            })
-
-            it('Contains tfoot Element', () => {
-                cy.get('tfoot');
             })
         })
     })
@@ -58,7 +54,7 @@ describe(`make screenshots`, () => {
 
     urls.forEach(url => {
         it(`${url} screenshots`, () => {
-            base_url = `https://${url}.github.io/wdd230/lesson-8/`;
+            base_url = `https://${url}.github.io/wdd230/lesson08/`;
             current_url = `${base_url}tablebuild.html`;
 
             for (let i = 0; i < sizes.length; i++) {
@@ -72,7 +68,7 @@ describe(`make screenshots`, () => {
 describe(`make html file`, () => {
     let screenshot_url, curr_name;
     urls.forEach(url => {
-        base_url = `https://${url}.github.io/wdd230/lesson-8/`;
+        base_url = `https://${url}.github.io/wdd230/lesson08/`;
         current_url = `${base_url}tablebuild.html`;
         student_string += `students.push({name:'${url}',link:'${current_url}'});`;
 

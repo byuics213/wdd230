@@ -10,7 +10,7 @@ const sizes = [
     ['medium', 'ipad-2'],
     ['large', [1440, 900]]
 ];
-let files = ["index"];
+let files = ["index","discover","join","directory"];
 
 describe(`Week ${lesson}`, () => {
     urls.forEach(url => {
@@ -460,7 +460,7 @@ describe(`Week ${lesson}`, () => {
                         cy.request(current_url)
                             .its('body') // NB the response body, not the body of your page
                             .then(content => {
-                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css|elfsight/);
+                                expect(content.toLowerCase()).to.not.match(/jquery|select2|bootstrap|w3.css|elfsight|moment/);
                             });
                     })
                 })

@@ -5,12 +5,13 @@ let base_url = '';
 let current_url = '';
 let lesson = 'final';
 let student_string = '';
+let student_string2 = '';
 const sizes = [
     ['base', 'iphone-6'],
     ['medium', 'ipad-2'],
     ['large', [1440, 900]]
 ];
-let files = ["index"];
+let files = ["index","home"];
 
 describe(`Week ${lesson}`, () => {
     urls.forEach(url => {
@@ -29,23 +30,6 @@ describe(`Week ${lesson}`, () => {
 
                     it('Contains nav element in header Element', () => {
                         cy.get('header nav');
-                    })
-
-                    it('Header nav contains 4 local links', () => {
-                        let link_count = 0;
-                        cy.get('header nav a')
-                            .each(($match) => {
-                                cy.wrap($match)
-                                    .invoke('attr', 'href')
-                                    .then((href) => {
-                                        if (!href.match(/https/)) {
-                                            link_count++;
-                                        }
-                                    })
-                            })
-                            .then(() => {
-                                expect(link_count).to.gte(4);
-                            })
                     })
 
                     it('Contains main Element', () => {
@@ -132,10 +116,6 @@ describe(`Week ${lesson}`, () => {
                             });
                     })
 
-                    it('Contains Copyright Symbol', () => {
-                        cy.contains('©');
-                    })
-
                     it('Img have alt', () => {
                         cy.get('img')
                             .each(($match) => {
@@ -196,59 +176,14 @@ describe(`Week ${lesson}`, () => {
                             });
                     })
 
-                    it('CSS normalize is first css file', () => {
-                        cy.get('link').first()
-                            .each(($match) => {
-                                cy.wrap($match)
-                                    .invoke('attr', 'href')
-                                    .then((href) => {
-                                        expect(href).to.match(/normalize.*\.css/);
-                                    })
-                            });
-                    })
-
-                    it('CSS includes base.css file', () => {
+                    it('CSS includes normalize.css file', () => {
                         let file_found = 0;
                         cy.get('link')
                             .each(($match) => {
                                 cy.wrap($match)
                                     .invoke('attr', 'href')
                                     .then((href) => {
-                                        if (href.match(/base\.css/)) {
-                                            file_found = 1;
-                                        }
-                                    })
-                            })
-                            .then(() => {
-                                expect(file_found).to.eq(1);
-                            });
-                    })
-
-                    it('CSS includes medium.css file', () => {
-                        let file_found = 0;
-                        cy.get('link')
-                            .each(($match) => {
-                                cy.wrap($match)
-                                    .invoke('attr', 'href')
-                                    .then((href) => {
-                                        if (href.match(/medium\.css/)) {
-                                            file_found = 1;
-                                        }
-                                    })
-                            })
-                            .then(() => {
-                                expect(file_found).to.eq(1);
-                            });
-                    })
-
-                    it('CSS includes large.css file', () => {
-                        let file_found = 0;
-                        cy.get('link')
-                            .each(($match) => {
-                                cy.wrap($match)
-                                    .invoke('attr', 'href')
-                                    .then((href) => {
-                                        if (href.match(/large\.css/)) {
+                                        if (href.match(/normalize\.css/)) {
                                             file_found = 1;
                                         }
                                     })
@@ -460,7 +395,7 @@ describe(`Week ${lesson}`, () => {
                         cy.request(current_url)
                             .its('body') // NB the response body, not the body of your page
                             .then(content => {
-                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css|elfsight/);
+                                expect(content.toLowerCase()).to.not.match(/jquery|select2|bootstrap|w3.css|elfsight|moment/);
                             });
                     })
                 })
@@ -508,6 +443,7 @@ describe(`make html file`, () => {
             base_url = `${url}`;
             current_url = `${base_url}${file}.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
+            student_string2 += `students.push({name:'${url}',link:'${base_url}index.html'});`;
 
             for (let i = 0; i < sizes.length; i++) {
                 curr_name = sizes[i][0];
@@ -521,5 +457,6 @@ describe(`make html file`, () => {
 
     it(`write html file`, () => {
         cy.writeFile("week" + lesson + ".html", begin_html + student_string + end_html);
+        cy.writeFile("week" + lesson + "2.html", begin_html + student_string2 + end_html);
     })
 })

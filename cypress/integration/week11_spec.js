@@ -5,12 +5,13 @@ let base_url = '';
 let current_url = '';
 let lesson = '11';
 let student_string = '';
+let student_string2 = '';
 const sizes = [
     ['base', 'iphone-6'],
     ['medium', 'ipad-2'],
     ['large', [1440, 900]]
 ];
-let files = ["chamber", "index","discover","join","directory","contact"];
+let files = ["index","discover","join","directory","contact"];
 
 describe(`Week ${lesson}`, () => {
     urls.forEach(url => {
@@ -18,7 +19,7 @@ describe(`Week ${lesson}`, () => {
             files.forEach(file => {
                 describe(`Current file: ${file}.html`, () => {
                     before(() => {
-                        base_url = `https://${url}.github.io/wdd230/lesson-11/`;
+                        base_url = `https://${url}.github.io/wdd230/chamber/`;
                         current_url = `${base_url}${file}.html`;
                         cy.visit(current_url);
                     })
@@ -460,7 +461,7 @@ describe(`Week ${lesson}`, () => {
                         cy.request(current_url)
                             .its('body') // NB the response body, not the body of your page
                             .then(content => {
-                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css|elfsight/);
+                                expect(content.toLowerCase()).to.not.match(/jquery|select2|bootstrap|w3.css|elfsight|moment/);
                             });
                     })
                 })
@@ -508,6 +509,7 @@ describe(`make html file`, () => {
             base_url = `https://${url}.github.io/wdd230/chamber/`;
             current_url = `${base_url}${file}.html`;
             student_string += `students.push({name:'${url}',link:'${current_url}'});`;
+            student_string2 += `students.push({name:'${url}',link:'${base_url}index.html'});`;
 
             for (let i = 0; i < sizes.length; i++) {
                 curr_name = sizes[i][0];
@@ -521,5 +523,6 @@ describe(`make html file`, () => {
 
     it(`write html file`, () => {
         cy.writeFile("week" + lesson + ".html", begin_html + student_string + end_html);
+        cy.writeFile("week" + lesson + "2.html", begin_html + student_string2 + end_html);
     })
 })
