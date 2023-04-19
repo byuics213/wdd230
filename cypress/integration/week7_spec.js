@@ -571,7 +571,7 @@ describe(`Week ${lesson}`, () => {
                         cy.request(current_url)
                             .its('body') // NB the response body, not the body of your page
                             .then(content => {
-                                expect(content.toLowerCase()).to.not.match(/jquery|bootstrap|w3.css/);
+                                expect(content.toLowerCase()).to.not.match(/jquery|select2|bootstrap|w3.css|elfsight|moment/);
                             });
                     })
                 })
