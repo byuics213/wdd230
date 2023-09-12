@@ -599,8 +599,8 @@ describe(`Week ${lesson}`, () => {
               script.getAttribute("src")
             );
 
-            if (srcsLen === 0) {
-              expect(srcsLen).to.gte(1);
+            if (srcs.length === 0) {
+              expect(srcs.length).to.gte(1);
             }
 
             srcs.forEach((src) => {
@@ -610,7 +610,6 @@ describe(`Week ${lesson}`, () => {
                 failOnStatusCode: false,
               }).then((resp) => {
                 expect(resp.status).to.eq(200);
-                //expect(resp.redirectedToUrl).to.eq(undefined)
               });
             });
           });
