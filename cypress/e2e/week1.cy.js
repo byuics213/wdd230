@@ -463,19 +463,28 @@ describe(`Week ${lesson}`, () => {
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
           .then((content) => {
-            cy.log(content);
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
-
+            
             const scripts = doc.querySelectorAll("script"); // native query
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
-            //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
+            
+            let srcsLen = srcs.length;
+            if(srcsLen === 0){
+              srcsLen = -1;
+            }
+            let foundLen = 0;
+            
             srcs.forEach((src) => {
-              cy.log(src);
-              expect(src).to.match(/^scripts\//);
+              const regex = /^scripts\//;
+              const found = src.match(regex);
+              if(found){
+                foundLen++;
+              }
             });
+            expect(srcsLen).to.eq(foundLen);
           });
       });
 
@@ -490,7 +499,19 @@ describe(`Week ${lesson}`, () => {
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
-            srcs.forEach((src) => expect(src.split(" ").join("")).to.eq(src));
+
+            let srcsLen = srcs.length;
+            if(srcsLen === 0){
+              srcsLen = -1;
+            }
+            let foundLen = 0;
+            
+            srcs.forEach((src) => {
+              if(src.split(" ").join("") === src){
+                foundLen++;
+              }
+            });
+            expect(srcsLen).to.eq(foundLen);
           });
       });
 
@@ -505,11 +526,23 @@ describe(`Week ${lesson}`, () => {
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
-            srcs.forEach((src) => expect(src.toLowerCase()).to.eq(src));
+
+            let srcsLen = srcs.length;
+            if(srcsLen === 0){
+              srcsLen = -1;
+            }
+            let foundLen = 0;
+            
+            srcs.forEach((src) => {
+              if(src.toLowerCase() === src){
+                foundLen++;
+              }
+            });
+            expect(srcsLen).to.eq(foundLen);
           });
       });
 
-      it("Naming Conventions - You must have a JS file named scripts/getDates.js", () => {
+      it("Naming Conventions - You must have a JS file named scripts/getdates.js", () => {
         let file_found = 0;
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
@@ -540,12 +573,17 @@ describe(`Week ${lesson}`, () => {
             const doc = parser.parseFromString(content, "text/html");
 
             const scripts = doc.querySelectorAll("script"); // native query
+            
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
-            srcs.forEach((src) => {
-              expect(src).to.not.be.null;
-            });
+
+            let srcsLen = srcs.length;
+            if(srcsLen === 0){
+              srcsLen = -1;
+            }
+
+            expect(srcsLen).to.eq(scripts.length);
           });
       });
 
@@ -560,6 +598,11 @@ describe(`Week ${lesson}`, () => {
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
+
+            if(srcsLen === 0){
+              expect(srcsLen).to.gte(1);
+            }
+
             srcs.forEach((src) => {
               cy.request({
                 url: base_url + src,
@@ -573,7 +616,7 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
-      it("Contains document.write", () => {
+      it("The JS should not contain document.write", () => {
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
           .then((content) => {
@@ -598,7 +641,7 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
-      it("No 3rd party code, such as jquery, bootstrap, etc. are allowed", () => {
+      it("There must not be any 3rd party code, such as jquery, bootstrap, etc.", () => {
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
           .then((content) => {
