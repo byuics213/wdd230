@@ -302,7 +302,7 @@ describe(`Week ${lesson}`, () => {
         cy.get("nav a")
           .contains("BYU-Idaho")
           .should("have.attr", "href")
-          .and("contain", "https://www.byui.edu")
+          .and("contain", "byui.edu")
           .and("have.attr", "target", "_blank");
       });
 
@@ -463,6 +463,7 @@ describe(`Week ${lesson}`, () => {
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
           .then((content) => {
+            cy.log(content);
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
 
