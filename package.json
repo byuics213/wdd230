@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/byuics213/wdd230#readme",
   "devDependencies": {
-    "cypress": "^9.5.4"
-  }
+    "cypress": "^12.17.1"
+  },
+  "dependencies": {}
 }

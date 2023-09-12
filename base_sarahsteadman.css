@@ -1,0 +1,443 @@
+/* Git hub HELOOOOOO?? */
+body {
+  background-color: #fffff4;
+}
+p, a {
+  font-family: Arial, Helvetica, sans-serif;
+}
+a{
+  text-decoration: none;
+}
+h1,
+h2 {
+  font-size: 7vw;
+  justify-content: left;
+  font-family: "Raleway", sans-serif;
+  color: #a31621;
+  margin: 0;
+}
+h2 {
+  font-size: 4vw;
+}
+#header-box {
+  padding: 5px 0;
+  display: grid;
+  grid-template: "p p p" auto
+                 "a b d" 1fr
+                 "e e e" 1em
+                 "f f f" auto/ 1fr 3fr 2fr;
+  margin: 0;
+  background-color: #ffd26f;
+}
+#banner{
+  display: none;
+}
+#banner.show{
+  grid-area: p;
+  background-color: #fffff4;
+  padding: 5px;
+  margin-top: 5px;
+  text-align: center;
+  display: inline;
+}
+#header-box a{
+  grid-area: a;
+}
+#header-box a img:hover{
+  opacity: .85;
+}
+.logo {
+  width: 15vw;
+  height: 15vw;
+  border: 1px solid #a31621;
+  margin: 2vw;
+}
+#headers{
+  margin: auto 0;
+  grid-area: b;
+}
+.socials{
+  margin: .4vw;
+  display: flex;
+  align-items: center;
+}
+.socials img {
+  width: 7vw;
+  border-radius: 100%;
+  margin: .3vw;
+}
+.socials img:hover{
+  border: 4px solid white;
+}
+#right-stuff {
+  display: flex;
+  grid-area: d;
+  align-items: center;
+  justify-content: right;
+}
+#hamButton{
+  width: fit-content;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  color: #a31621;
+  border: 2px solid #a31621;
+  background-color: #fffff4;
+  margin: .4vw;
+}
+nav {
+  display: none;
+  grid-area: f;
+}
+nav.responsive {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fbe8bf;
+  border: 3px solid #fffff4;
+  padding: 15px;
+  margin: 30px auto;
+}
+nav.responsive a {
+  width: 150px;
+  margin: 8px;
+  padding: 7px;
+  text-decoration: none;
+  text-align: center;
+  background-color: #ffd26f;
+  color: #a31621;
+}
+nav.responsive a:hover {
+  background-color: #fffff4;
+}
+#time {
+  grid-area: e;
+  text-align: center;
+  font-size: 1em;
+  color: #a31621;
+  background-color: #fff9a3;
+  padding: 5px 0;
+  margin: 0;
+  height: 1em;
+}
+/* *************************************Main Area************************************* */
+main section, #spotlights {
+  height: auto;
+  width: 90%;
+  margin: 10px auto;
+  border: 1px solid #ffd26f;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+}
+#hero h3{
+  z-index: 2;
+  margin: 0px;
+  position: absolute;
+  top:5%;
+  left: 5%;
+  font-family: "Raleway", sans-serif;
+  font-size: 4vw;
+  color: #a31621;
+  text-shadow: white 1px 0 10px;
+}
+#hero img{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+#hero button{
+  z-index: 2;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  color:#a31621;
+  background-color: #fffff4;
+  font-family: "Raleway", sans-serif;
+  height: 15%;
+  width: 20%;
+  font-size: 160%;
+  border: 3px solid #a31621;
+  border-radius: 10px;
+}
+#hero button:hover,#join button:hover{
+  background-color: #ffd26f;
+}
+h4, h5{
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+  font-size: 25px;
+  color: #a31621;
+}
+img{
+  width: 200px;
+  margin: 0 auto;
+  display: block;
+}
+p{
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 20px;
+}
+#weather img{
+  width: fit-content;
+  height: fit-content;
+  border: 2px solid #ffd26f;
+}
+#weather p{
+  color:#a31621;
+}
+#join button{
+  margin: auto;
+  display: block;
+  width: 200px;
+  color:#a31621;
+  background-color: #fffff4;
+  font-family: "Raleway", sans-serif;
+  font-size: 160%;
+  border: 3px solid #a31621;
+  border-radius: 10px;
+}
+#spotlights section:nth-child(3){
+  display: none;
+}
+#spotlights section {
+  height: 400px;
+  border: 1px solid #ffd26f;
+}
+/*********************************************** Footer ************************************************/
+footer {
+  margin-top: 20px;
+}
+footer .logo {
+  display: block;
+  margin: 0 auto;
+  width: 30vw;
+  height: 30vw;
+  max-width: 200px;
+  max-height: 200px;
+  border: none;
+}
+footer p {
+  margin: 10px auto;
+  text-align: center;
+}
+.location {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  width: 50vw;
+  color: black;
+  font-size: 22px;
+  text-decoration: underline;
+}
+.location:hover{
+  color:#a31621;
+}
+footer div{
+  background-color: #ffd26f;
+  padding: 5px;
+  width: 100%;
+
+}
+footer div p{
+  color: #a31621;
+  font-size: smaller;
+  margin: 2px;
+}
+/* ************************************************discover************************************************** */
+#discover-main{
+  display: flex;
+  flex-direction: column;
+  padding: 3vw;
+}
+#discover-main h2{
+  text-align: center;
+}
+.discover{
+  padding: 20px;
+}
+.discover h4{
+margin:5px;
+}
+figcaption{
+  text-align: center;
+  font-size: 1em;
+  padding: 3px;
+  font-style: italic;
+}
+/*************************************** FORM ********************************************/
+#join, fieldset, #contact{
+  display: flex;
+  flex-direction: column;
+}
+#join h2, #contact h2{
+  text-align: center;
+}
+legend{
+  font-family: "Raleway", sans-serif;
+  font-size: 1.7rem;
+  color: #a31621;
+  padding: 5px;
+  font-weight: bold;
+}
+.submitBtn{
+  display: block;
+  margin: 40px auto;
+  color:#fffff4;
+  background-color: #a31621;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 10px;
+  height: 60px;
+  width: 150px;
+}
+.submitBtn:hover{
+  background-color: #ffd26f;
+  color: #a31621;
+}
+fieldset{
+  margin: 10px;
+  border: 2px solid #ffd26f;
+}
+fieldset h4{
+  margin:10px;
+}
+label{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 0px 15px 0px 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+}
+#member-level label{
+  display: initial;
+}
+.top input, .top textarea{
+  font-size: 1.3rem;
+  border-radius: 4px;
+  padding: .75rem;
+  border: 1px solid gray;
+}
+textarea{
+  height: 250px;
+}
+form label.top input:required{
+  border-left: red solid 6px;
+}
+form label.top input:required:valid{
+  border-left: green solid 6px;
+}
+input[type="radio"] {
+  margin-right: 10px;
+}
+th {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #ffd26f;
+}
+tbody tr:nth-child(1),
+tbody tr:nth-child(3) {
+  background-color: #fff9a3;
+}
+#benefits{
+  margin-bottom: 20px;
+}
+/* ************************************Thank You************************************** */
+#thank h2{
+  text-align: center;
+  margin-top: 15px;
+}
+#thank{
+  margin-top: 50px;
+  height: fit-content;
+}
+/* **************************************Directory************************************ */
+#directory-main{
+  display: block;
+}
+#directory-main #buttons{
+  display: flex;
+  margin: 0 auto;
+  width:100px;
+}
+#grid,#list{
+  margin: 0 auto;
+  width: 43px;
+  height: 41px;
+  border: 3px solid #a31621;
+  background-color: #fffff4;
+  color:#a31621;
+  font-size: 30px;
+}
+#grid:hover,#list:hover{
+  background-color: #fbe8bf;
+}
+#directory-main div{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin: 10px 0px;
+}
+#directory-main .list{
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+#directory-main .list section{
+  padding: 12px 0px 12px 5px;
+  margin: 0px;
+  border: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#directory-main .list section:nth-child(odd){
+background-color: #fff9a3;
+}
+#directory-main .list .disapear{
+display: none;
+}
+#directory-main .list section p, #directory-main .list section h2{
+  display: block;
+  width: 300px;
+  margin: 0px;
+  text-align: left;
+  font-size: 11px;
+}
+#directory-main .list section h2{
+  color: black;
+  font-weight: normal;
+  width: 180px;
+}
+#directory-main section{
+  display: block;
+  margin: 30px auto;
+  width: 270px;
+  height: fit-content;
+  border: 8px double #a31621;
+}
+#directory-main p{
+  margin: 8px;
+  font-size: 15px;
+}
+.list img{
+  display: none;
+}
+#directory-main div img{
+  border: 5px solid #ffd26f;
+  height: 100px;
+  width: auto;
+}
+#directory-main h2{
+  text-align: center;
+  margin: 20px;
+}
+#directory-main div h2{
+  font-size: 25px;
+}

@@ -1,0 +1,400 @@
+*, h1{
+    margin: 0;
+}
+.move-down{
+    margin-top: 3rem;
+
+}
+main{
+    margin: 2rem auto;
+    text-align: center;
+}
+
+#welcome-banner{
+    display: none;
+    background-color: #EFF6EE;
+    border:1px solid #DC493A;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: .5em;
+    z-index: 2;
+    text-align: center;
+}
+#welcome-banner div p{
+    margin: 0 1.3rem;
+} 
+.close-btn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background-color: transparent;
+    color: #273043;
+    
+}
+body{
+    width: 100%;
+    font-family: 'Montserrat';
+    background-color: #ffffff;
+    color: #273043;
+    font-size: 16px;
+    
+}
+footer{
+    background: linear-gradient(to right, #D00000, #000000);
+}
+
+header, footer{
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    padding-top: 1.2rem;
+    text-align: center;
+}
+.main-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav{
+    position: relative;    
+}
+nav button{
+    margin: .2rem ;
+    background: transparent;
+    font-size: 2rem;
+    color: #D00000;
+    border: none;
+ 
+}
+nav button.open:hover, .close-btn:hover{
+    color: #D00000;
+    
+}
+nav ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    
+}
+header div nav.open{
+    width:100%;
+    height: auto;
+    margin: 0;
+    position:absolute;
+    float: inline-end;
+    top: 0;
+    left: 0;
+    background-color:#ffffff;
+    box-shadow: 0 0 20px 5px #919296;
+    transform: translateY(7%);
+    transition: transform 0.5s;
+    z-index: 1;
+    
+}
+nav ul.open{
+    display:block;
+    
+}
+nav ul li a{
+    border-top: 2px solid rgb(255, 227, 227);
+    display: flex;
+    padding: 1rem ;
+    text-decoration: none;
+    color: #000000;
+    border-left: 1px solid #000000;
+    font-family:'Montserrat', sans-serif;
+    transition: background-color 0.3s ease;
+
+}
+nav ul li.active a{
+    background-color: #EFF6EE;
+    color: #273043;
+}
+
+nav ul li a:hover{
+    background-color: #D00000;
+    color: #EFF6EE;
+}
+
+#hamburgerBtn span:nth-child(1), 
+#hamburgerBtn.open span:nth-child(2),
+nav ul.open,
+nav ul li a,
+#date,
+.discover figure, 
+.companies div,
+.grid div, 
+.top input,
+textarea,
+label {
+display: block;
+
+}
+#hamburgerBtn span:nth-child(2), 
+#hamburgerBtn.open span:nth-child(1),
+.spotlights div:nth-child(3), 
+#welcome-banner,
+nav ul,
+.join, 
+.list img{
+display: none;
+}
+.img-contact {
+    max-width: 100%;
+}
+.contactUs section, .contactUs form {
+    padding: 0 1rem; 
+}
+
+
+
+.primaryNav{
+    margin-left: auto;
+    overflow: hidden;
+    position: relative;
+}
+hr{
+    margin: 1.5rem;
+    background-color: #5C6479;
+    color: #5C6479;
+}
+.logo-img{
+    width: 20px;
+    height: auto;
+}
+.footer-img{
+    width: 170px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+.headings{
+    display: flex;
+    flex-direction: column;
+    
+}
+#date{
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background: linear-gradient(to right, #D00000, #000000);
+    display: block;
+    font-family: "Bitter", sans-serif;
+}
+.social-media img{
+    order: 3;
+    width: 30px;
+    height: auto;
+    padding: 0.3rem;
+}
+/*Main*/
+section{
+    margin: 2rem 1.5rem;
+    background-color: #cd000012;
+    height: auto;
+    box-shadow: 0 0 5px #757f99;
+}
+.spotlights{
+    background-color: #cd000012;
+    height: auto;
+    box-shadow: 0 0 5px #757f99;
+}
+
+
+
+.spotlights, h4, h3, .hero button, section {
+    padding: 1.2rem;
+}
+.hero{
+    position: relative;
+    padding: 0;
+}
+.hero-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero button {
+    position: absolute;
+    bottom: 40px;
+    right: 30px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #EFF6EE;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease;
+  }
+  
+  .hero button:hover {
+    background-color: #af0202;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+  }
+.hero h2{
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: azure;
+    text-shadow: -3px 3px 2px #000;
+    padding: .5rem;
+}
+.weather{
+    font-size: 1.2rem;
+}
+
+.spotlights div, .stocks div{   
+    padding: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 0 8px #5C6479;
+    
+}
+.spotlights div p, .spotlights div a{
+    font-size: 80%;
+}
+a, .spotlights a, .event a, .discover a, .thankDiv a, .companies a, .contactUs a{
+    color: #000000;
+    text-decoration: none;
+}
+.spotlight1 img,
+.spotlight2 img,
+.spotlight3 img{
+    width: -webkit-fill-available;
+  }
+
+a{
+    color: #EFF6EE;
+}
+
+/*Discover page*/
+.discover figure, .companies div,.grid div{
+    margin: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 0 5px #757f99;
+    background-color: #fbeded;
+    text-align: justify;
+}
+
+.discover figure img{
+    float: right;
+    margin: 15px;       
+}
+
+.discover_paragraph{
+    padding: 1rem;
+}
+.discover figure img[data-src]{
+    filter: blur(0.2em);
+
+}
+.visits-display{
+    padding: 2rem 0;
+}
+
+/*Join page*/
+.joinUs form, .list div, .contactUs form{
+    margin: 1rem;
+    padding: 1rem;
+    text-align: left;
+    background-color: #cd000012;
+    box-shadow: 0 0 8px #5C6479;
+    
+}
+fieldset{
+    margin:2rem 0;
+    color: #273043;
+    border-radius: 5px;
+}
+label{
+    margin: 1rem ;
+    font-size: .90rem;
+    color: #5C6479;
+}
+.top input, textarea{
+    padding: 0.75rem;
+    background-color: #ffffff;
+    color: #273043;
+    width: 90%;
+    font-size: 1rem;
+    outline: none;
+}
+.top input:required{
+    border: 1px solid #bd1300;
+}
+.top input:required:valid{
+    border: 2px solid #ffc400;
+}
+.sendBtn{
+    padding: 1rem ;
+    width: 100%;
+
+    bottom: 40px;
+    right: 30px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #EFF6EE;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease;
+
+}
+.sendBtn:hover, .directory div button:hover{
+    background-color: #af0202;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+.membershipLevel{
+    border: 1px solid #DC493A;
+    padding: .75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    color: #273043;
+    font-weight: bold;
+}
+
+.membershipLevel input{
+    height: 20px;
+    width: 20px;
+}
+.membershipLevel span + :checked {
+    color: #DC493A;
+}
+input[type="radio"]:checked{
+   accent-color: #DC493A;
+}
+.membershipInfo div, .thankDiv{
+    box-shadow: 0 0 6px #5C6479;
+    margin: 1rem;
+    padding: 1rem;
+}
+.thankDiv{
+    font-size: 18px;
+    margin: 2rem;
+    padding: 3rem;
+    background-color: #cd000012;
+}
+/*Directory*/
+.companies div p, .companies h4, .list div a{
+    padding: .4rem;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.list div{
+    margin: 0;
+    box-shadow: none;
+    
+}
+.list div:nth-child(even){
+    background-color: #e7eaf2;
+}
+.directory div button{
+    margin: .5rem;
+}
