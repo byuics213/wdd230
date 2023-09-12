@@ -56,24 +56,6 @@ describe(`Week ${lesson}`, () => {
         });
       });
 
-      it("Naming Conventions - The JS folder must be named scripts", () => {
-        cy.request(current_url)
-          .its("body") // NB the response body, not the body of your page
-          .then((content) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, "text/html");
-
-            const scripts = doc.querySelectorAll("script"); // native query
-            const srcs = [...scripts].map((script) =>
-              script.getAttribute("src")
-            );
-            //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
-            srcs.forEach((src) => {
-              expect(src).to.match(/^scripts\//);
-            });
-          });
-      });
-
       it("Naming Conventions - Img src is without spaces", () => {
         cy.get("img").each(($match) => {
           cy.wrap($match)
@@ -132,36 +114,6 @@ describe(`Week ${lesson}`, () => {
         });
       });
 
-      it("Naming Conventions - JavaScript src is without spaces", () => {
-        cy.request(current_url)
-          .its("body") // NB the response body, not the body of your page
-          .then((content) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, "text/html");
-
-            const scripts = doc.querySelectorAll("script"); // native query
-            const srcs = [...scripts].map((script) =>
-              script.getAttribute("src")
-            );
-            srcs.forEach((src) => expect(src.split(" ").join("")).to.eq(src));
-          });
-      });
-
-      it("Naming Conventions - JavaScript src is lowercase", () => {
-        cy.request(current_url)
-          .its("body") // NB the response body, not the body of your page
-          .then((content) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, "text/html");
-
-            const scripts = doc.querySelectorAll("script"); // native query
-            const srcs = [...scripts].map((script) =>
-              script.getAttribute("src")
-            );
-            srcs.forEach((src) => expect(src.toLowerCase()).to.eq(src));
-          });
-      });
-
       it("Naming Conventions - Your main CSS file must be styles/base.css", () => {
         let file_found = 0;
         cy.get("link")
@@ -173,29 +125,6 @@ describe(`Week ${lesson}`, () => {
                   file_found = 1;
                 }
               });
-          })
-          .then(() => {
-            expect(file_found).to.eq(1);
-          });
-      });
-
-      it("Naming Conventions - You must have a JS file named scripts/getDates.js", () => {
-        let file_found = 0;
-        cy.request(current_url)
-          .its("body") // NB the response body, not the body of your page
-          .then((content) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, "text/html");
-
-            const scripts = doc.querySelectorAll("script"); // native query
-            const srcs = [...scripts].map((script) =>
-              script.getAttribute("src")
-            );
-            srcs.forEach((src) => {
-              if (src.match(/getdates\.js/)) {
-                file_found = 1;
-              }
-            });
           })
           .then(() => {
             expect(file_found).to.eq(1);
@@ -520,6 +449,87 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
+      it("JavaScript is not in a <link>", () => {
+        cy.get("link").each(($match) => {
+          cy.wrap($match)
+            .invoke("attr", "href")
+            .then((href) => {
+              expect(href).to.not.match(/^js\//);
+            });
+        });
+      });
+
+      it("Naming Conventions - The JS folder must be named scripts", () => {
+        cy.request(current_url)
+          .its("body") // NB the response body, not the body of your page
+          .then((content) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, "text/html");
+
+            const scripts = doc.querySelectorAll("script"); // native query
+            const srcs = [...scripts].map((script) =>
+              script.getAttribute("src")
+            );
+            //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
+            srcs.forEach((src) => {
+              expect(src).to.match(/^scripts\//);
+            });
+          });
+      });
+
+      it("Naming Conventions - JavaScript src is without spaces", () => {
+        cy.request(current_url)
+          .its("body") // NB the response body, not the body of your page
+          .then((content) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, "text/html");
+
+            const scripts = doc.querySelectorAll("script"); // native query
+            const srcs = [...scripts].map((script) =>
+              script.getAttribute("src")
+            );
+            srcs.forEach((src) => expect(src.split(" ").join("")).to.eq(src));
+          });
+      });
+
+      it("Naming Conventions - JavaScript src is lowercase", () => {
+        cy.request(current_url)
+          .its("body") // NB the response body, not the body of your page
+          .then((content) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, "text/html");
+
+            const scripts = doc.querySelectorAll("script"); // native query
+            const srcs = [...scripts].map((script) =>
+              script.getAttribute("src")
+            );
+            srcs.forEach((src) => expect(src.toLowerCase()).to.eq(src));
+          });
+      });
+
+      it("Naming Conventions - You must have a JS file named scripts/getDates.js", () => {
+        let file_found = 0;
+        cy.request(current_url)
+          .its("body") // NB the response body, not the body of your page
+          .then((content) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, "text/html");
+
+            const scripts = doc.querySelectorAll("script"); // native query
+            const srcs = [...scripts].map((script) =>
+              script.getAttribute("src")
+            );
+            srcs.forEach((src) => {
+              if (src.match(/getdates\.js/)) {
+                file_found = 1;
+              }
+            });
+          })
+          .then(() => {
+            expect(file_found).to.eq(1);
+          });
+      });
+
       it("JavaScript is in external files", () => {
         cy.request(current_url)
           .its("body") // NB the response body, not the body of your page
@@ -535,16 +545,6 @@ describe(`Week ${lesson}`, () => {
               expect(src).to.not.be.null;
             });
           });
-      });
-
-      it("JavaScript is not in a <link>", () => {
-        cy.get("link").each(($match) => {
-          cy.wrap($match)
-            .invoke("attr", "href")
-            .then((href) => {
-              expect(href).to.not.match(/^js\//);
-            });
-        });
       });
 
       it("JavaScript file is found", () => {
