@@ -243,9 +243,9 @@ describe(`Week ${lesson}`, () => {
             .then((href) => {
               if (
                 !href.includes("../") &&
-                !href.includes("css/") 
+                !href.includes("styles/") 
               ) {
-                expect(href).to.match(/fonts.googleapis/);
+                expect(href).to.match(/fonts.googleapis|fonts.gstatic/);
               }
             });
         });
@@ -380,7 +380,7 @@ describe(`Week ${lesson}`, () => {
       });
 
       it("Footer Content - The second paragraph must have an id of lastModified", () => {
-        cy.contains("footer p#lastModified");
+        cy.get("footer p#lastModified");
       });
 
       it("An ID may only be used once", () => {
