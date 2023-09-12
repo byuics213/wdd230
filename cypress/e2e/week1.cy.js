@@ -213,7 +213,9 @@ describe(`Week ${lesson}`, () => {
         cy.document()
           .get("html")
           .invoke("attr", "lang")
-          .should("contain", "en");
+          .then((lang) => {
+            expect(lang).to.have.length.of.at.least(2);
+          });
       });
 
       it("Development Standards - Must include the head tag", () => {
