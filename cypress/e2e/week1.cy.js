@@ -243,10 +243,9 @@ describe(`Week ${lesson}`, () => {
             .then((href) => {
               if (
                 !href.includes("../") &&
-                !href.includes("css/") &&
-                !href.includes("gstatic")
+                !href.includes("css/") 
               ) {
-                expect(href).to.match(/googleapis/);
+                expect(href).to.match(/fonts.googleapis/);
               }
             });
         });
