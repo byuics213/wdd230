@@ -469,10 +469,12 @@ describe(`Week ${lesson}`, () => {
 
             const scripts = doc.querySelectorAll("script"); // native query
             const srcs = [...scripts].map((script) =>
+              cy.log(script);
               script.getAttribute("src")
             );
             //expect(srcs.every(src => src.startsWith('js/'))).to.eq(true)
             srcs.forEach((src) => {
+              cy.log(src);
               expect(src).to.match(/^scripts\//);
             });
           });
