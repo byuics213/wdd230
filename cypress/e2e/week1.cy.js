@@ -214,6 +214,7 @@ describe(`Week ${lesson}`, () => {
           .get("html")
           .invoke("attr", "lang")
           .then((lang) => {
+            cy.log(lang);
             expect(lang).to.have.length.of.at.least(2);
           });
       });
