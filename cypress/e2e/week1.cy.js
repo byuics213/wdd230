@@ -241,10 +241,7 @@ describe(`Week ${lesson}`, () => {
           cy.wrap($match)
             .invoke("attr", "href")
             .then((href) => {
-              if (
-                !href.includes("../") &&
-                !href.includes("styles/") 
-              ) {
+              if (!href.includes("../") && !href.includes("styles/")) {
                 expect(href).to.match(/fonts.googleapis|fonts.gstatic/);
               }
             });
@@ -342,25 +339,19 @@ describe(`Week ${lesson}`, () => {
       });
 
       it("Main Content - An h3 tag containing Learning Activities as text", () => {
-        cy.get("main section.card h3")
-          .contains("Learning Activities");
+        cy.get("main section.card h3").contains("Learning Activities");
       });
 
       it("Main Content - An ul with list items li and anchors a for learning activities", () => {
-        cy.get("main section.card ul li a")
+        cy.get("main section.card ul li a");
       });
 
       it("Main Content - An h3 tag containing Information as text", () => {
-        cy.get("main section.card h3")
-          .contains("Information");
+        cy.get("main section.card h3").contains("Information");
       });
 
       it("Main Content - The <main> column cards must be layed out using CSS Grid.", () => {
-        cy.get("main")
-          .invoke("css", "display")
-          .then((display) => {
-            expect(display).to.equal("grid");
-          });
+        cy.get("main").should("have.css", "display", "grid");
       });
 
       it("Footer Content - The <footer> must have two paragraphs", () => {
@@ -375,8 +366,7 @@ describe(`Week ${lesson}`, () => {
       });
 
       it("Footer Content - The first paragraph contains the copyright symbol", () => {
-        cy.get("footer p")
-        .contains("©");
+        cy.get("footer p").contains("©");
       });
 
       it("Footer Content - The second paragraph must have an id of lastModified", () => {
@@ -475,22 +465,22 @@ describe(`Week ${lesson}`, () => {
           .then((content) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
-            
+
             const scripts = doc.querySelectorAll("script"); // native query
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
-            
+
             let srcsLen = srcs.length;
-            if(srcsLen === 0){
+            if (srcsLen === 0) {
               srcsLen = -1;
             }
             let foundLen = 0;
-            
+
             srcs.forEach((src) => {
               const regex = /^scripts\//;
               const found = src.match(regex);
-              if(found){
+              if (found) {
                 foundLen++;
               }
             });
@@ -511,13 +501,13 @@ describe(`Week ${lesson}`, () => {
             );
 
             let srcsLen = srcs.length;
-            if(srcsLen === 0){
+            if (srcsLen === 0) {
               srcsLen = -1;
             }
             let foundLen = 0;
-            
+
             srcs.forEach((src) => {
-              if(src.split(" ").join("") === src){
+              if (src.split(" ").join("") === src) {
                 foundLen++;
               }
             });
@@ -538,13 +528,13 @@ describe(`Week ${lesson}`, () => {
             );
 
             let srcsLen = srcs.length;
-            if(srcsLen === 0){
+            if (srcsLen === 0) {
               srcsLen = -1;
             }
             let foundLen = 0;
-            
+
             srcs.forEach((src) => {
-              if(src.toLowerCase() === src){
+              if (src.toLowerCase() === src) {
                 foundLen++;
               }
             });
@@ -583,13 +573,13 @@ describe(`Week ${lesson}`, () => {
             const doc = parser.parseFromString(content, "text/html");
 
             const scripts = doc.querySelectorAll("script"); // native query
-            
+
             const srcs = [...scripts].map((script) =>
               script.getAttribute("src")
             );
 
             let srcsLen = srcs.length;
-            if(srcsLen === 0){
+            if (srcsLen === 0) {
               srcsLen = -1;
             }
 
@@ -609,7 +599,7 @@ describe(`Week ${lesson}`, () => {
               script.getAttribute("src")
             );
 
-            if(srcsLen === 0){
+            if (srcsLen === 0) {
               expect(srcsLen).to.gte(1);
             }
 
