@@ -306,6 +306,12 @@ describe(`Week ${lesson}`, () => {
           .and("have.attr", "target", "_blank");
       });
 
+      it("Main Navigation Layout - BYU-Idaho link must open in a new tab", () => {
+        cy.get("nav a")
+          .contains("BYU-Idaho")
+          .should("have.attr", "target", "_blank");
+      });
+
       it("Main Navigation Layout - Nav must have a link named Scripture with an href attribute of https://www.churchofjesuschrist.org/study/scriptures", () => {
         cy.get("nav a")
           .contains("Scripture")
@@ -315,6 +321,12 @@ describe(`Week ${lesson}`, () => {
             "https://www.churchofjesuschrist.org/study/scriptures"
           )
           .and("have.attr", "target", "_blank");
+      });
+
+      it("Main Navigation Layout -Scripture link must open in a new tab", () => {
+        cy.get("nav a")
+          .contains("Scripture")
+          .should("have.attr", "target", "_blank");
       });
 
       it("Main H2 - The <main> element must contain a h2 tag with the words WDD 230: Web Frontend Development", () => {
