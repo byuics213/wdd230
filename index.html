@@ -1,63 +1,57 @@
-<!DOCTYPE html2>
-<html>
-    <head> 
-        <meta charset="ISO-8859-1">
-        <meta name="viewport" content="width=device-width, initial-scale=2">
-        <meta name="descriptions" content="Assignment portal for John Allred in WDD 230: Web Frontend Development at Brigham Young University - Idaho">
-        <title>ok</title>
-        <script src="js/index.js" defer></script>
-        <script src="js/spa ce.js" defer></script>
-        <script src="js/UPPERCASE.js" defer></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>wdd 230 - web frontend development</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Allred" />
+    <meta
+      name="description"
+      content="wdd 230 - web frontend development course assignment portal"
+    />
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-        <link rel="javascript" type="text/js" href="js/index.js">
+    <link rel="stylesheet" type="text/css" href="styles/base.css" />
 
-        <script>
-            let internaljs = true;
-        </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>John Allred</h1>
+      <img src="images/hobbes.jpg" alt="hobbes" />
+    </header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="chamber/siteplan.html">Site Plan</a>
+      <a href="chamber/">Chamber</a>
+      <a href="https://byui.edu" target="_blank">BYU-Idaho</a>
+      <a
+        href="https://www.churchofjesuschrist.org/study/scriptures"
+        target="_blank"
+        >Scripture</a
+      >
+    </nav>
+    <main>
+      <h2>WDD 230: Web Frontend Development</h2>
+      <section class="card">
+        <h3>Learning Activities</h3>
+        <ul>
+          <li><a href="#"></a></li>
+        </ul>
+      </section>
+      <section class="card">
+        <h3>Information</h3>
+      </section>
+    </main>
+    <footer>
+      <p>©</p>
+      <p id="lastModified"></p>
+    </footer>
 
-        <link rel="stylesheet" type="text/css" href="css2/index.css">
-        <link rel="stylesheet" type="text/css" href="css/spa ce.css">
-        <link rel="stylesheet" type="text/css" href="css/UPPERCASE.css">
-
-        <style>
-            body{
-                color:red;
-            }
-        </style>
-        
-    </head>
-    <body>
-        <header>
-            <img src="images2/hobbes.jpg" width="200" height="262">
-            <img src="images/spa ce.jpg" width="200" height="262">
-            <img src="images/UPPERCASE.jpg" width="200" height="262">
-            
-            <h4>John Allred</h1>
-        </header>
-        <div>
-            <h3>WDD 230: Assignment Portal</h2>
-            <hr>
-            <h1 style="color:red">first h1</h1>
-            <h1>second h1</h1>
-            <ul>
-                <li>Lesson 02: <a href="lesson2/design-principles.html">Design Principles Document</a></li>
-                <li>Lesson 03: <a href="lesson3/index.html">Website Planning Document</a></li>
-                <li>Lesson 04: <a href="chamber/index.html">Chamber Home Page Build</a></li>
-                <li>Lesson 05: <a href="chamber/index.html">Chamber Home Page Continued</a></li>
-                <li>Lesson 06: <a href="chamber/index.html">Responsive Design</a></li>
-                <li>Lesson 07: <a href="chamber/discover.html">The Discover Page - Image Section </a></li>
-                <li>Lesson 08: <a href="chamber/join.html">Join Page</a></li>
-                <li>Lesson 09: <a href="chamber/directory.html">The Business Directory Page</a></li>
-                <li>Lesson 10: <a href="chamber/index.html">Using the Weather API</a>
-                <li id="current_year">Lesson 11: <a href="chamber/index.html">The Chamber of Commerce Site</a></li>
-            </ul>
-            <hr>
-            <aside>lessons may need more than one activity/assignemnt link</aside> 
-        </div>
-        <div>
-            <p>&copies; <span id="current_year">1995</span> | John Allred | Oregon</p>
-            <p>Last Updated: <span id="last_modified">08/18/1995 10:01:12</span></p>
-        </div>
-    </body>
+    <script src="scripts/getdates.js" defer></script>
+  </body>
 </html>
