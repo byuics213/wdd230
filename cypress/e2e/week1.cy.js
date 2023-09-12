@@ -302,8 +302,7 @@ describe(`Week ${lesson}`, () => {
         cy.get("nav a")
           .contains("BYU-Idaho")
           .should("have.attr", "href")
-          .and("contain", "byui.edu")
-          .and("have.attr", "target", "_blank");
+          .and("contain", "byui.edu");
       });
 
       it("Main Navigation Layout - BYU-Idaho link must open in a new tab", () => {
@@ -319,8 +318,7 @@ describe(`Week ${lesson}`, () => {
           .and(
             "contain",
             "https://www.churchofjesuschrist.org/study/scriptures"
-          )
-          .and("have.attr", "target", "_blank");
+          );
       });
 
       it("Main Navigation Layout -Scripture link must open in a new tab", () => {
@@ -378,7 +376,8 @@ describe(`Week ${lesson}`, () => {
       });
 
       it("Footer Content - The first paragraph contains the copyright symbol", () => {
-        cy.contains("©");
+        cy.get("footer p")
+        .contains("©");
       });
 
       it("Footer Content - The second paragraph must have an id of lastModified", () => {
