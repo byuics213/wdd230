@@ -18,7 +18,7 @@ describe(`Week ${lesson}`, () => {
     urls.forEach(url => {
     //Cypress.env('urls').forEach(url => {
         describe(`Current student: ${url}`, () => {
-            before(() => {
+            beforeEach(() => {
                 base_url = `https://${url}.github.io/wdd230/lesson${lesson}/`;
                 current_url = `${base_url}design-principles.html`;
                 cy.visit(current_url) ;

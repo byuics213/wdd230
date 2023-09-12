@@ -22,7 +22,7 @@ describe(`Week ${lesson}`, () => {
         describe(`Current student: ${url}`, () => {
             files.forEach(file => {
                 describe(`Current file: ${file}.html`, () => {
-                    before(() => {
+                    beforeEach(() => {
                         base_url = `https://${url}.github.io/wdd230/lesson${lesson}/`;
                         current_url = `${base_url}${file}.html`;
                         cy.visit(current_url);

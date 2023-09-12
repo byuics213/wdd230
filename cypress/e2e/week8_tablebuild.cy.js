@@ -14,7 +14,7 @@ const sizes = [
 describe(`Week ${lesson} Table Build`, () => {
     urls.forEach(url => {
         describe(`Current student: ${url}`, () => {
-            before(() => {
+            beforeEach(() => {
                 base_url = `https://${url}.github.io/wdd230/lesson08/`;
                 current_url = `${base_url}tablebuild.html`;
                 cy.visit(current_url);
