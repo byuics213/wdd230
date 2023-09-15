@@ -10,7 +10,7 @@ describe(`Week ${lesson}`, () => {
     let student_string = "";
     urls.forEach((url) => {
       base_url = `https://${url}.github.io/wdd230/`;
-      current_url = `${base_url}index2.html`;
+      current_url = `${base_url}index.html`;
       student_string += `students.push({name:'${url}',link:'${current_url}'});`;
     });
     cy.writeFile(
@@ -143,7 +143,6 @@ describe(`Week ${lesson}`, () => {
           .get("html")
           .invoke("attr", "lang")
           .then((lang) => {
-            cy.log(lang);
             expect(lang).to.have.length.of.at.least(2);
           });
       });
@@ -317,7 +316,7 @@ describe(`Week ${lesson}`, () => {
           );
       });
 
-      it("Main Navigation Layout -Scripture link must open in a new tab", () => {
+      it("Main Navigation Layout - Scripture link must open in a new tab", () => {
         cy.get("nav a")
           .contains("Scripture")
           .should("have.attr", "target", "_blank");
