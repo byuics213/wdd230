@@ -23,7 +23,7 @@ describe(`Week ${lesson}`, () => {
     describe(`Current student: ${url}`, () => {
       beforeEach(() => {
         base_url = `https://${url}.github.io/wdd230/`;
-        current_url = `${base_url}index2.html`;
+        current_url = `${base_url}index.html`;
         cy.visit(current_url);
       });
 

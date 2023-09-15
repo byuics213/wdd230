@@ -12,6 +12,8 @@ Install
 
 6. add "cypress:open": "cypress open" to "scripts" in your package.json file.
 
+6b. add the student github usernames to the fixturs/students.json file
+
 7. Open terminal and run npm run cypress:open
 
 8. A cypress window should open to show the test being run.
