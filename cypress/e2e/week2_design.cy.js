@@ -10,11 +10,11 @@ describe(`Week ${lesson}`, () => {
     let student_string = "";
     urls.forEach((url) => {
       base_url = `https://${url}.github.io/wdd230/`;
-      current_url = `${base_url}index.html`;
+      current_url = `${base_url}/lesson02/design-principles.html`;
       student_string += `students.push({name:'${url}',link:'${current_url}'});`;
     });
     cy.writeFile(
-      "week" + lesson + ".html",
+      "week" + lesson + "_design.html",
       begin_html + student_string + end_html
     );
   });
@@ -23,7 +23,7 @@ describe(`Week ${lesson}`, () => {
     describe(`Current student: ${url}`, () => {
       beforeEach(() => {
         base_url = `https://${url}.github.io/wdd230/`;
-        current_url = `${base_url}index.html`;
+        current_url = `${base_url}/lesson02/design-principles.html`;
         cy.visit(current_url);
       });
 
@@ -123,23 +123,6 @@ describe(`Week ${lesson}`, () => {
               .invoke("attr", "href")
               .then((href) => {
                 if (href.match(/base\.css/)) {
-                  file_found = 1;
-                }
-              });
-          })
-          .then(() => {
-            expect(file_found).to.eq(1);
-          });
-      });
-
-      it("Home Page Enhancement - There must be a styles/larger.css file", () => {
-        let file_found = 0;
-        cy.get("link")
-          .each(($match) => {
-            cy.wrap($match)
-              .invoke("attr", "href")
-              .then((href) => {
-                if (href.match(/larger\.css/)) {
                   file_found = 1;
                 }
               });
@@ -270,16 +253,6 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
-
-
-      it("Development Standards - The <title> must include 'WDD 230 - Web Frontend Development'", () => {
-        cy.title().then((title) => {
-          expect(title.toLowerCase()).to.match(
-            /wdd 230 - web frontend development/
-          );
-        });
-      });
-
       it("Development Standards - The <head> must include the meta description element", () => {
         cy.document()
           .get("head meta[name=description]")
@@ -287,26 +260,6 @@ describe(`Week ${lesson}`, () => {
           .then((content) => {
             expect(content).to.have.length.of.at.least(3);
                       });
-      });
-
-      it("Development Standards - The meta description content must include 'WDD 230 - Web Frontend Development'", () => {
-        cy.document()
-          .get("head meta[name=description]")
-          .invoke("attr", "content")
-          .then((content) => {
-            expect(content.toLowerCase()).to.match(
-              /wdd 230 - web frontend development/
-            );
-          });
-      });
-
-      it("Development Standards - The meta description content must include 'course assignment portal'", () => {
-        cy.document()
-          .get("head meta[name=description]")
-          .invoke("attr", "content")
-          .then((content) => {
-            expect(content.toLowerCase()).to.match(/course assignment portal/);
-          });
       });
 
       it("Development Standards - The <head> must include the meta author element", () => {
@@ -318,20 +271,8 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
-      it("Development Standards - The <body> must have a layout using header element", () => {
-        cy.get("header");
-      });
-
-      it("Development Standards - The <body> must have a layout using nav element", () => {
-        cy.get("nav");
-      });
-
       it("Development Standards - The <body> must have a layout using main element", () => {
         cy.get("main");
-      });
-
-      it("Development Standards - The <body> must have a layout using footer element", () => {
-        cy.get("footer");
       });
 
       it("Development Standards - The Google Fonts API must be used to select one or two fonts to use on the page", () => {
@@ -348,133 +289,8 @@ describe(`Week ${lesson}`, () => {
         });
       });
 
-      it("Header Content - The <header> element must contain your optimized profile image img", () => {
-        cy.get("header img");
-      });
-
-      it("Header Content - The <header> element must contain your name in an h1 tag", () => {
-        cy.get("header h1");
-      });
-
-      it("Header Content - An html document can contain at most 1 h1 Element", () => {
-        let h1_count = 0;
-        cy.get("h1")
-          .each(($match) => {
-            h1_count++;
-          })
-          .then(() => {
-            expect(h1_count).to.lte(1);
-          });
-      });
-
-      it("Main Navigation Layout - Five <a> links are found in the nav tag", () => {
-        let link_count = 0;
-        cy.get("nav a")
-          .each(($match) => {
-            link_count++;
-          })
-          .then(() => {
-            expect(link_count).to.gte(5);
-          });
-      });
-
-      it("Main Navigation Layout - Nav must have a link named Home with an href attribute of #", () => {
-        cy.get("nav a").contains("Home").should("have.attr", "href", "#");
-      });
-
-      it("Main Navigation Layout - Nav must have a link named Site Plan with an href attribute of chamber/siteplan.html", () => {
-        cy.get("nav a")
-          .contains("Site Plan")
-          .should("have.attr", "href", "chamber/siteplan.html");
-      });
-
-      it("Main Navigation Layout - Nav must have a link named Chamber with an href attribute of chamber/", () => {
-        cy.get("nav a")
-          .contains("Chamber")
-          .should("have.attr", "href", "chamber/");
-      });
-
-      it("Main Navigation Layout - Nav must have a link named BYU-Idaho with an href attribute of BYU-Idaho's home page", () => {
-        cy.get("nav a")
-          .contains("BYU-Idaho")
-          .should("have.attr", "href")
-          .and("contain", "byui.edu");
-      });
-
-      it("Main Navigation Layout - BYU-Idaho link must open in a new tab", () => {
-        cy.get("nav a")
-          .contains("BYU-Idaho")
-          .should("have.attr", "target", "_blank");
-      });
-
-      it("Main Navigation Layout - Nav must have a link named Scripture with an href attribute of https://www.churchofjesuschrist.org/study/scriptures", () => {
-        cy.get("nav a")
-          .contains("Scripture")
-          .should("have.attr", "href")
-          .and(
-            "contain",
-            "https://www.churchofjesuschrist.org/study/scriptures"
-          );
-      });
-
-      it("Main Navigation Layout - Scripture link must open in a new tab", () => {
-        cy.get("nav a")
-          .contains("Scripture")
-          .should("have.attr", "target", "_blank");
-      });
-
-      it("Home Page Enhancement - The navigation must be layed out using CSS Flex.", () => {
-        cy.get("nav").should("have.css", "display", "flex");
-      });
-
-      it("Main H2 - The <main> element must contain a h2 tag with the words WDD 230: Web Frontend Development", () => {
-        cy.get("main h2").contains("WDD 230: Web Frontend Development");
-      });
-
-      it("Main Content - The main section contains two sections with the class attribute named card", () => {
-        let link_count = 0;
-        cy.get("main section.card")
-          .each(($match) => {
-            link_count++;
-          })
-          .then(() => {
-            expect(link_count).to.gte(2);
-          });
-      });
-
-      it("Main Content - An h3 tag containing Learning Activities as text", () => {
-        cy.get("main section.card h3").contains("Learning Activities");
-      });
-
-      it("Main Content - An ul with list items li and anchors a for learning activities", () => {
-        cy.get("main section.card ul li a");
-      });
-
-      it("Main Content - An h3 tag containing Information as text", () => {
-        cy.get("main section.card h3").contains("Information");
-      });
-
       it("Main Content - The <main> column cards must be layed out using CSS Grid.", () => {
         cy.get("main").should("have.css", "display", "grid");
-      });
-
-      it("Footer Content - The <footer> must have two paragraphs", () => {
-        let link_count = 0;
-        cy.get("footer p")
-          .each(($match) => {
-            link_count++;
-          })
-          .then(() => {
-            expect(link_count).to.gte(2);
-          });
-      });
-
-      it("Footer Content - The first paragraph contains the copyright symbol", () => {
-        cy.get("footer p").contains("©");
-      });
-
-      it("Footer Content - The second paragraph must have an id of lastModified", () => {
-        cy.get("footer p#lastModified");
       });
 
       it("An ID may only be used once", () => {
@@ -643,29 +459,6 @@ describe(`Week ${lesson}`, () => {
               }
             });
             expect(srcsLen).to.eq(foundLen);
-          });
-      });
-
-      it("Naming Conventions - You must have a JS file named scripts/getdates.js", () => {
-        let file_found = 0;
-        cy.request(current_url)
-          .its("body") // NB the response body, not the body of your page
-          .then((content) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(content, "text/html");
-
-            const scripts = doc.querySelectorAll("script"); // native query
-            const srcs = [...scripts].map((script) =>
-              script.getAttribute("src")
-            );
-            srcs.forEach((src) => {
-              if (src.match(/getdates\.js/)) {
-                file_found = 1;
-              }
-            });
-          })
-          .then(() => {
-            expect(file_found).to.eq(1);
           });
       });
 

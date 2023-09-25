@@ -48,7 +48,8 @@ describe(`Week ${lesson}`, () => {
                 !href.includes("../") &&
                 !href.includes("googleapis") &&
                 !href.includes("gstatic") &&
-                !href.includes("http")
+                !href.includes("http") &&
+                !href.includes("favicon")
               ) {
                 expect(href).to.match(/styles\//);
               }
@@ -172,7 +173,11 @@ describe(`Week ${lesson}`, () => {
           .should("include", "width=device-width, initial-scale=1");
       });
 
-      it("Development Standards - The <head> must include the title element", () => {
+      it("Development Standards - Must include the title tag", () => {
+        cy.get("title");
+      });
+
+      it("Development Standards - The <title> must include 'WDD 230 - Web Frontend Development'", () => {
         cy.title().then((title) => {
           expect(title.toLowerCase()).to.match(
             /wdd 230 - web frontend development/
@@ -186,11 +191,10 @@ describe(`Week ${lesson}`, () => {
           .invoke("attr", "content")
           .then((content) => {
             expect(content).to.have.length.of.at.least(3);
-            expect(content).to.have.length.of.at.most(150);
           });
       });
 
-      it("Development Standards - The meta description content must include WDD 230 - Web Frontend Development", () => {
+      it("Development Standards - The meta description content must include 'WDD 230 - Web Frontend Development'", () => {
         cy.document()
           .get("head meta[name=description]")
           .invoke("attr", "content")
@@ -201,7 +205,7 @@ describe(`Week ${lesson}`, () => {
           });
       });
 
-      it("Development Standards - The meta description content must include course assignment portal", () => {
+      it("Development Standards - The meta description content must include 'course assignment portal'", () => {
         cy.document()
           .get("head meta[name=description]")
           .invoke("attr", "content")
@@ -240,7 +244,9 @@ describe(`Week ${lesson}`, () => {
           cy.wrap($match)
             .invoke("attr", "href")
             .then((href) => {
-              if (!href.includes("../") && !href.includes("styles/")) {
+              if (!href.includes("../") 
+              && !href.includes("styles/")
+              && !href.includes("favicon")) {
                 expect(href).to.match(/fonts.googleapis|fonts.gstatic/);
               }
             });
